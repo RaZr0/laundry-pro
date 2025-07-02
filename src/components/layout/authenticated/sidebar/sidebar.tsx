@@ -14,7 +14,7 @@ const SIDEBAR_WIDTH = '256px';
 export function Sidebar() {
     const isMobile = useIsMobile();
     return (
-        <aside className="w-[256px] shrink-0 z-10 max-lg:fixed h-screen flex flex-col bg-background border-l"
+        <aside className="w-[256px] shrink-0 z-10 max-lg:fixed h-dvh flex flex-col bg-background border-l"
             style={{ width: SIDEBAR_WIDTH }}
         >
             <button className="absolute right-4 top-4 lg:hidden cursor-pointer opacity-70" onClick={() => layoutStore.toggleSidebar()}>
