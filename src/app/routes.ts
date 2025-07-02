@@ -19,5 +19,8 @@ export const ROUTES = {
     },
     'settings': {
         link: '/settings',
-    }
+    },
+    'login': {
+        link: '/login',
+    },
 }

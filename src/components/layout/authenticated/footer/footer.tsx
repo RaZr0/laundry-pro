@@ -1,13 +1,13 @@
 import { ROUTES } from "@/app/routes";
 import { Button } from "@/components/ui/button";
-import { ClipboardList, Home, Plus, Receipt, Truck, Users } from "lucide-react";
+import { ClipboardList, Home, Plus, Truck, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactElement, ReactNode } from "react";
 
 const ICON_SIZE = 20;
 
-interface FooterItemProps {
+type FooterItemProps = {
     icon: ReactElement;
     link: string;
     children?: ReactNode;
@@ -48,10 +48,7 @@ export function Footer() {
                     הזמנות
                 </FooterItem>
                 <FooterItem icon={<Truck size={ICON_SIZE} />} link={ROUTES.shippings.link}>
-                    איסופים
-                </FooterItem>
-                <FooterItem icon={<Receipt size={ICON_SIZE} />} link={ROUTES.accounts.link}>
-                    חשבונות
+                    משלוחים
                 </FooterItem>
             </ul>
         </footer>

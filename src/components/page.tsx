@@ -1,7 +1,7 @@
 import { PageContent } from "./page-content";
 import { PageTitle } from "./page-title";
 
-interface PageProps {
+type PageProps = {
     title?: string;
     children?: React.ReactNode;
 }

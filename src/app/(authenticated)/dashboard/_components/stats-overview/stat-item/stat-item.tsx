@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ArrowDownLeft, ArrowUp, ArrowUpRight } from "lucide-react";
 
-export interface StatCardProps {
+export type StatCardProps = {
     title: string;
     value: number;
     change: number;

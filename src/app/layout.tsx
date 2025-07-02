@@ -1,6 +1,7 @@
+import { heIL } from '@clerk/localizations';
+import { ClerkProvider } from '@clerk/nextjs';
 import { Arimo } from 'next/font/google';
 import "./globals.css";
-import { Layout } from '@/components/layout/layout';
 
 const arimo = Arimo({
   subsets: ['latin'],
@@ -19,9 +20,9 @@ export default function RootLayout({
       <body
         className={arimo.className}
       >
-        <Layout>
+        <ClerkProvider localization={heIL}>
           {children}
-        </Layout>
+        </ClerkProvider>
       </body>
     </html>
   );

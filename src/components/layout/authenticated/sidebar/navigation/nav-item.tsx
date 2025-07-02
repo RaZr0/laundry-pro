@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactElement, ReactNode } from "react";
 
-interface NavItemProps {
+type NavItemProps = {
     icon: ReactElement;
     link: string;
     children?: ReactNode;

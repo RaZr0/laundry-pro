@@ -1,5 +1,5 @@
 import { Logo } from "@/components/logo";
-import { Notification } from "../../notification";
+import { Notification } from "@/components/notification";
 import { Hamburger } from "./hamburger";
 
 export function Header() {
