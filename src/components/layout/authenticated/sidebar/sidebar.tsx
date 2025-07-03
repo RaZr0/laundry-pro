@@ -20,7 +20,7 @@ export function Sidebar() {
             <button className="absolute right-4 top-4 lg:hidden cursor-pointer opacity-70" onClick={() => layoutStore.toggleSidebar()}>
                 <X size={16} />
             </button>
-            <div className='flex flex-col items-center py-3 px-6 h-[var(--header-height)'>
+            <div className='flex flex-col items-center py-3 px-6 h-[var(--header-height)]'>
                 <Logo />
             </div>
             <div>

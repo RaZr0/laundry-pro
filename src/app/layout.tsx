@@ -1,7 +1,11 @@
+'use client';
 import { heIL } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Arimo } from 'next/font/google';
 import "./globals.css";
+
+const queryClient = new QueryClient();
 
 const arimo = Arimo({
   subsets: ['latin'],
@@ -21,7 +25,9 @@ export default function RootLayout({
         className={arimo.className}
       >
         <ClerkProvider localization={heIL}>
-          {children}
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
         </ClerkProvider>
       </body>
     </html>
