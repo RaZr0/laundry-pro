@@ -1,11 +1,19 @@
 import { Separator } from "./ui/separator";
 
-export function PageTitle({ children }: { children: React.ReactNode }) {
+type PageTitleProps = {
+    children: React.ReactNode;
+    actions?: React.ReactNode;
+}
+
+export function PageTitle({ children, actions }: PageTitleProps) {
     return (
-        <div className="flex flex-col">
-            <h1 className='flex items-center text-xl font-bold px-6 bg-background h-[var(--header-height)]'>
-                {children}
-            </h1>
+        <div className="flex flex-col bg-background">
+            <div className="flex justify-between items-center px-6 h-[var(--header-height)]">
+                <h1 className='flex items-center text-xl font-bold'>
+                    {children}
+                </h1>
+                {actions && <div>{actions}</div>}
+            </div>
             <Separator />
         </div>
     );

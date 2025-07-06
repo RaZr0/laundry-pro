@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import { heIL } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -9,8 +10,8 @@ const queryClient = new QueryClient();
 
 const arimo = Arimo({
   subsets: ['latin'],
-  weight: ['400', '700'], // Choose weights you need
-  variable: '--font-arimo', // Optional for Tailwind
+  weight: ['400','500','600', '700'],
+  variable: '--font-arimo',
   display: 'swap',
 })
 

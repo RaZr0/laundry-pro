@@ -51,7 +51,7 @@ function StatusChange(change: number) {
 export function StatItem({ title, value, change, icon }: StatCardProps) {
     return (
         <li>
-            <Card className="p-6 min-w-[240px]">
+            <Card className="min-w-[240px]">
                 <div className="flex justify-between items-start">
                     <div>
                         <p className="text-sm text-muted-foreground mb-1">{title}</p>

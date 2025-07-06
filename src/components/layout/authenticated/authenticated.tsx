@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { observer } from "mobx-react-lite";
 import { Footer } from "./footer/footer";

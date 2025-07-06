@@ -6,7 +6,7 @@ export function TotalOrdersPrice({ orders }: { orders: Order[] }) {
     const ordersTotal = orders.reduce((total, order) => total + (order.paid ? order.total : -order.total), 0);
     return (
         <div className='flex gap-2 items-center'>
-            <span className={ordersTotal < 0 ? 'text-red-600' : 'text-green-600'}>{formatPrice(ordersTotal)}</span>
+            <span className={ordersTotal !== 0 ? ( ordersTotal < 0 ? 'text-red-600' : 'text-green-600') : ''}>{formatPrice(ordersTotal)}</span>
             <span><CreditCard size={16} /></span>
         </div>
     );

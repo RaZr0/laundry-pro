@@ -7,6 +7,11 @@ export function getAllByCustomer(customerId?: string) {
         },
         include: {
             customer: true,
+            items: {
+                include: {
+                    product: true,
+                },
+            },
         },
     });
 }

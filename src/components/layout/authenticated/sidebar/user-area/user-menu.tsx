@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import { ROUTES } from "@/app/routes";
 import { Separator } from "@/components/ui/separator";
 import { useClerk } from "@clerk/nextjs";
@@ -14,7 +15,7 @@ type MenuItemProps = {
     children?: React.ReactNode;
 }
 
-function MenuItem({ icon, link,onClick, children }: MenuItemProps) {
+function MenuItem({ icon, link, onClick, children }: MenuItemProps) {
     return <li className='hover:bg-muted hover:text-foreground px-6 py-2' onClick={() => onClick?.()}>
         <Link href={link} className="flex gap-2 items-center justify-end">
             <span className="text-sm">

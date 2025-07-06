@@ -1,24 +1,13 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
-import { Column, ColumnDef } from "@tanstack/react-table";
-import { Customer } from "../../types/customer";
+import { ColumnDef } from "@tanstack/react-table";
 import { CustomerIcon } from "../customer-icon";
 import { LastOrder } from "../last-order";
 import { TotalOrdersPrice } from "../total-orders-price";
-import { Order } from "../../types/order";
-
-function SortingHeader({ column, children }: { column: Column<Customer>, children?: React.ReactNode }) {
-  return (
-    <Button
-      variant="ghost"
-      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    >
-      {children}
-    </Button>
-  )
-}
-
+import { SortingHeader } from "@/components/data-table";
+import { Customer } from "@/app/(server)/types/customer";
+import { Order } from "@/app/(server)/types/order";
+import { Address } from "@/components/address";
 
 export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
   {
@@ -31,10 +20,14 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
       )
     },
     cell: ({ row }) => {
-      const name = row.original.name;
+      const name = `${row.original.firstName} ${row.original.lastName}`;
+      const id = row.original.id;
       return <div className="flex items-center gap-2">
         <CustomerIcon />
-        <span>{name}</span>
+        <div className="flex flex-col">
+          <span>{name}</span>
+          <span className="text-muted-foreground">{id}</span>
+        </div>
       </div>;
     },
   },
@@ -56,9 +49,18 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
       </div>;
     },
     sortingFn: (rowA, rowB) => {
-      const emailA = rowA.original.email.toLowerCase();
-      const emailB = rowB.original.email.toLowerCase();
-      return emailA.localeCompare(emailB);
+      const emailA = rowA.original.email?.toLowerCase();
+      const emailB = rowB.original.email?.toLowerCase();
+
+      if(!emailA){
+        return 1;
+      }
+
+      if(!emailB){
+        return -1;
+      }
+
+      return emailA?.localeCompare(emailB);
     }
   },
   {
@@ -69,6 +71,11 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
           כתובת
         </SortingHeader>
       )
+    },
+    cell: ({ row }) => {
+      const city = row.original.city;
+      const street = row.original.street;
+      return <Address city={city} street={street} />;
     },
   },
   {
@@ -84,7 +91,7 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
       return <TotalOrdersPrice orders={row.original.orders} />;
     },
     sortingFn: (rowA, rowB) => {
-      function total(orders : Order[]){
+      function total(orders: Order[]) {
         return orders.reduce((total, order) => total + (order.paid ? order.total : -order.total), 0)
       }
       const totalA = total(rowA.original.orders);
@@ -110,7 +117,7 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
   },
   {
     accessorKey: "lastOrderDate",
-     header: ({ column }) => {
+    header: ({ column }) => {
       return (
         <SortingHeader column={column}>
           הזמנה אחרונה

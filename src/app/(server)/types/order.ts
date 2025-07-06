@@ -3,4 +3,5 @@ export type Order = {
   total: number;
   createdAt: Date;
   paid: boolean;
+  status: string;
 }

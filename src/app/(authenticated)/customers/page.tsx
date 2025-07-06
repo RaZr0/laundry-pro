@@ -1,18 +1,16 @@
 import { Page } from "@/components/page";
 import { getAll } from "@/db/customers";
 import { currentUser, User } from "@clerk/nextjs/server";
-import { CustomersView } from "./_components/customers-view/customers-view";
+import { CustomersView } from "./_components/customers-view";
+import { TitleActions } from "./_components/title-actions";
 
-export default async function Customers() {
+export default async function CustomersPage() {
   const user = await currentUser();
   const data = await getAll(user as User);
 
-  console.log(data);
-  
-
   return (
-    <Page title="לקוחות">
-      <CustomersView data={data} /> 
+    <Page title="לקוחות" titleActions={<TitleActions />}>
+      <CustomersView data={data} />
     </Page>
   );
 }

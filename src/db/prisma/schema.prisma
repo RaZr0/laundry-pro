@@ -12,23 +12,37 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(cuid())
-  name         String?
-  email        String         @unique
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   customer Customer[]
 }
 
 model Customer {
-  id      String @id @default(cuid())
-  name    String
-  email   String @unique
-  phone   String?
-  address String
+  id                   String  @id @default(cuid())
+  firstName            String
+  lastName             String
+  phone                String
+  email                String?  @unique
+  city                 String?
+  street               String?
+  postalCode           String?
+  apartmentFloor       Int?
+  apartmentNumber      Int?
+  apartmentEntrance    String?
+  apartmentEntryCode   String?
+  prefrencesNotes      String?
+  joinMarketing        Boolean @default(false)
+  sendReminders        Boolean @default(false)
+  orderAcceptedAlert   Boolean @default(false)
+  orderInProgressAlert Boolean @default(false)
+  orderReadyAlert      Boolean @default(false)
+  orderDeliveredAlert  Boolean @default(false)
 
-  user User[]
+  user   User[]
   orders Orders[]
 }
 
@@ -43,4 +57,31 @@ model Orders {
 
   customerId String
   customer   Customer @relation(fields: [customerId], references: [id])
+
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  quantity  Int
+  service   String
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orderId String
+  order   Orders @relation(fields: [orderId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  items OrderItem[]
 }

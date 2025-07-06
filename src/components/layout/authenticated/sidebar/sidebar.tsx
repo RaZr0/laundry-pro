@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import { layoutStore } from "@/stores/layout.store";
 import { Logo } from "@/components/logo";
 import { Separator } from "@/components/ui/separator";
