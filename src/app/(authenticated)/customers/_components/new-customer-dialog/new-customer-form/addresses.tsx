@@ -54,7 +54,7 @@ export function Addresses({ form }: { form: UseFormReturn<z.infer<typeof FormSch
                         <FormItem>
                             <FormLabel>קומה</FormLabel>
                             <FormControl>
-                                <Input placeholder="2" {...field} autoComplete="new-password" />
+                                <Input placeholder="2" {...field} autoComplete="new-password" type="number"/>
                             </FormControl>
                         </FormItem>
                     )}
@@ -66,7 +66,7 @@ export function Addresses({ form }: { form: UseFormReturn<z.infer<typeof FormSch
                         <FormItem>
                             <FormLabel>מספר דירה</FormLabel>
                             <FormControl>
-                                <Input placeholder="-1" {...field} autoComplete="new-password" />
+                                <Input placeholder="-1" {...field} autoComplete="new-password" type="number"/>
                             </FormControl>
                         </FormItem>
                     )}
