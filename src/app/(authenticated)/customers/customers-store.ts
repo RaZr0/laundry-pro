@@ -1,4 +1,4 @@
-import { Customer } from "@/app/(server)/types/customer";
+import { Customer } from "@/types/customer";
 import { makeAutoObservable } from "mobx";
 
 export class CustomersStore {

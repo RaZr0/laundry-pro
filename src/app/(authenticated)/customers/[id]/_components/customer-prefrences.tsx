@@ -1,4 +1,4 @@
-import { Customer } from "@/app/(server)/types/customer";
+import { Customer } from "@/types/customer";
 import { Card, CardTitle } from "@/components/ui/card";
 
 type CustomerPrefrencesProps = {

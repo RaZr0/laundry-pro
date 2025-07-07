@@ -1,9 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { CustomerIcon } from "../customer-icon";
-import { TotalOrdersPrice } from "../total-orders-price";
+import { CustomerBalance } from "../customer-balance";
 import { LastOrder } from "../last-order";
 import { cn } from "@/lib/utils";
-import { Customer } from "@/app/(server)/types/customer";
+import { Customer } from "@/types/customer";
 
 type CustomersListProps = {
     data: Customer[];
@@ -23,7 +23,7 @@ function CustomerItem({ customer, onClick }: { customer: Customer, onClick?: () 
             <div className="flex flex-col text-sm gap-1">
                 <div className="flex justify-between">
                     <span className="text-muted-foreground">חובות וזיכויים: </span>
-                    <TotalOrdersPrice orders={customer.orders} />
+                    <CustomerBalance orders={customer.orders} />
                 </div>
                 <div>
                     <span className="text-muted-foreground">הזמנות: </span>

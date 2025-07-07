@@ -1,20 +1,27 @@
-import { Customer } from "@/app/(server)/types/customer";
 import { User } from "@clerk/nextjs/server";
-import { PrismaClient } from "./prisma/generated/client";
+import { PrismaClient, Customer } from "./prisma/generated/client";
 
-export async function getAll(user: User) {
+export async function getAll(user: User): Promise<Customer[]> {
     try {
         return await new PrismaClient().customer.findMany(
             {
                 where: {
                     user: {
                         every: {
-                            id: user.id
+                            email: user.primaryEmailAddress?.emailAddress,
                         }
                     }
                 },
                 include: {
-                    orders: true,
+                    orders: {
+                        include: {
+                            orderItems: {
+                                include: { 
+                                    product: true
+                                }
+                            }
+                        }
+                    },
                 }
             },
         );
@@ -32,12 +39,20 @@ export async function getById(user: User, id: string): Promise<Customer | null> 
                 id,
                 user: {
                     some: {
-                        id: user.id
+                        email: user.primaryEmailAddress?.emailAddress
                     }
                 }
             },
             include: {
-                orders: true,
+                orders: {
+                    include : {
+                        orderItems : {
+                            include : { 
+                                product: true
+                            }
+                        }
+                    }
+                },
             }
         });
     }
@@ -56,7 +71,7 @@ export async function createCustomer(user: User, customer: Omit<Customer, 'id' |
                 ...customer,
                 user: {
                     connect: {
-                        id: user.id
+                        email: user.primaryEmailAddress?.emailAddress
                     }
                 }
             }

@@ -6,7 +6,7 @@ export const FormSchema = z.object({
     phone: z
         .string()
         .trim()
-        .regex(/^\+972\s5[0-9]\s\d{3}-\d{4}$/, {
+        .regex(/^\d{10}$/, {
             message: "מספר טלפון לא תקין",
         }),
     email: z.string().transform((val) => (val === "" ? undefined : val)).optional().pipe(z.string().email({ message: "דואר אלקטרוני לא תקין" }).optional()),

@@ -26,7 +26,7 @@ model Customer {
   firstName            String
   lastName             String
   phone                String
-  email                String?  @unique
+  email                String? @unique
   city                 String?
   street               String?
   postalCode           String?
@@ -42,14 +42,14 @@ model Customer {
   orderReadyAlert      Boolean @default(false)
   orderDeliveredAlert  Boolean @default(false)
 
-  user   User[]
-  orders Orders[]
+  user     User[]
+  orders   Order[]
+  products Product[]
 }
 
-model Orders {
+model Order {
   id          String   @id @default(cuid())
   orderNumber String   @unique
-  total       Float
   status      String
   createdAt   DateTime @default(now())
   paid        Boolean  @default(false)
@@ -58,7 +58,7 @@ model Orders {
   customerId String
   customer   Customer @relation(fields: [customerId], references: [id])
 
-  items      OrderItem[]
+  orderItems OrderItem[]
 }
 
 model OrderItem {
@@ -70,7 +70,7 @@ model OrderItem {
   updatedAt DateTime @updatedAt
 
   orderId String
-  order   Orders @relation(fields: [orderId], references: [id])
+  order   Order @relation(fields: [orderId], references: [id])
 
   productId String
   product   Product @relation(fields: [productId], references: [id])
@@ -79,9 +79,25 @@ model OrderItem {
 model Product {
   id          String   @id @default(cuid())
   name        String
+  priceUnit   Float
   price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  items OrderItem[]
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  orderItems OrderItem[]
+
+  serviceCategoryId String
+  serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
+}
+
+model ServiceCategory {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
 }

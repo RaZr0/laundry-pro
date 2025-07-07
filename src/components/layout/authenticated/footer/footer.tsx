@@ -29,7 +29,7 @@ function FooterItem({ icon, link, children }: FooterItemProps) {
 
 export function Footer() {
     return (
-        <footer className="fixed bottom-0 w-screen bg-background border-t px-1 py-1">
+        <footer className="h-[var(--footer-height)] fixed bottom-0 w-screen bg-background border-t px-1 py-1">
             <ul className="flex gap-4 items-center justify-between">
                 <FooterItem icon={<Home size={ICON_SIZE} />} link={ROUTES.dashboard.link}>
                     התובנות שלי

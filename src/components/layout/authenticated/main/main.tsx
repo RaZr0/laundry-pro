@@ -5,7 +5,7 @@ function Main({
 }>) {
     
     return ( 
-        <main className='flex-1 flex bg-[#FAFAFA] max-lg:mt-[var(--header-height)]'>{children}</main>
+        <main className='flex-1 flex bg-[#FAFAFA] max-lg:mt-[var(--header-height)] max-lg:pb-[calc(var(--footer-height)+60px)]'>{children}</main>
      );
 }
 

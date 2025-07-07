@@ -1,15 +1,20 @@
 "use client"
 
-import { Customer } from "@/app/(server)/types/customer"
-import { DataTable, DataTableProps } from "@/components/data-table"
+import { DataTable } from "@/components/data-table"
+import { Customer } from "@/types/customer"
+import { CUSTOMER_COLUMNS } from "./customers-table-columns"
+
+type CustomersTableProps = {
+  data: Customer[];
+  onRowClick?: (customer: Customer) => void;
+}
 
 export function CustomersTable({
-  columns,
   data,
   onRowClick
-}: DataTableProps<Customer, unknown>) {
+}: CustomersTableProps) {
 
   return (
-    <DataTable columns={columns} data={data}  onRowClick={onRowClick} />
+    <DataTable columns={CUSTOMER_COLUMNS} data={data} onRowClick={onRowClick} />
   )
 }

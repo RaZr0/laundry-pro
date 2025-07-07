@@ -8,7 +8,7 @@ function getMatchedMediaQuery() {
           removeEventListener: () => {}
       }
   }
-  return window.matchMedia('(max-width: 1024px)');
+  return window.matchMedia('(max-width: 1023px)');
 }
 
 export function useIsMobile() {

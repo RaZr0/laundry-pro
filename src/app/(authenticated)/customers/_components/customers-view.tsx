@@ -1,14 +1,13 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { Customer } from "@/types/customer";
 import { observer } from "mobx-react-lite";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { customersStore } from "../customers-store";
 import { CustomersList } from "./customers-list/customers-list";
 import { CustomersTable } from "./customers-table/customers-table";
-import { CUSTOMER_COLUMNS } from "./customers-table/customers-table-columns";
-import { useRouter } from "next/navigation";
-import { Customer } from "@/app/(server)/types/customer";
 
 type CustomersViewProps = {
     data: Customer[];
@@ -23,7 +22,6 @@ export const CustomersView = observer(({ data }: CustomersViewProps) => {
     useEffect(() => {
         if (customersStore.data) {
             setCustomers(customersStore.data);
-
         }
     }, [customersStore.data])
 
@@ -33,7 +31,7 @@ export const CustomersView = observer(({ data }: CustomersViewProps) => {
 
     return (
         <div>
-            {isMobile ? <CustomersList data={customers} onCustomerClick={handleCustomerClick} /> : <CustomersTable columns={CUSTOMER_COLUMNS} data={customers} onRowClick={handleCustomerClick} />}
+            {isMobile ? <CustomersList data={customers} onCustomerClick={handleCustomerClick} /> : <CustomersTable data={customers} onRowClick={handleCustomerClick} />}
         </div>
     );
 })

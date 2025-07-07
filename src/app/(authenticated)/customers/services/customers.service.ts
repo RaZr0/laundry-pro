@@ -1,6 +1,6 @@
 import z from "zod";
 import { FormSchema } from "../_components/new-customer-dialog/new-customer-form/schema/schema";
-import { Customer } from "@/app/(server)/types/customer";
+import { Customer } from "@/types/customer";
 
 export async function fetchCustomers(): Promise<Customer[]> {
     try{

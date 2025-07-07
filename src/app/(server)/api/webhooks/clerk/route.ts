@@ -1,8 +1,8 @@
 import { createUser } from "@/db/users";
 import { headers } from 'next/headers';
 import { Webhook } from 'svix';
-import { ClerkWebhookEvent } from './interfaces/event.inteface';
-import { ClerkWebhookUserCreateEvent } from './interfaces/user-create-event.interface';
+import { ClerkWebhookEvent } from './types/event';
+import { ClerkWebhookUserCreateEvent } from './types/user-create-event';
 
 const webhookSecret = process.env.CLERK_WEBHOOK_SECRET as string;
 
@@ -24,6 +24,7 @@ export async function POST(req: Request) {
   try {
     evt = await validateRequest(req);
   } catch (err) {
+    console.log('Invalid signature or error validating request:', err);
     return new Response('Invalid signature', { status: 400 });
   }
 

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { createCustomer } from "../../../services/customers.service";
@@ -9,7 +10,6 @@ import { GeneralDetails } from "./general-details";
 import { MarketingAndNotifications } from "./marketing-and-notifications";
 import { Prefrences } from "./prefrences";
 import { FormSchema } from "./schema/schema";
-import { useMutation } from "@tanstack/react-query";
 
 type NewCustomerFormProps = {
     onSubmit: (data: z.infer<typeof FormSchema>) => void;
@@ -42,13 +42,14 @@ export function NewCustomerForm({ onSubmit, onClose }: NewCustomerFormProps) {
     })
 
     const mutation = useMutation({
-        mutationFn: async (data) => {
+        mutationFn: async (data: z.infer<typeof FormSchema>) => {
             return createCustomer(data);
         },
     });
 
     async function onSubmitForm(data: z.infer<typeof FormSchema>) {
         try {
+            console.log(data);
             await mutation.mutateAsync(data);
             onSubmit(data);
             onClose?.();

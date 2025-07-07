@@ -3,11 +3,12 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { CustomerIcon } from "../customer-icon";
 import { LastOrder } from "../last-order";
-import { TotalOrdersPrice } from "../total-orders-price";
+import { CustomerBalance } from "../customer-balance";
 import { SortingHeader } from "@/components/data-table";
-import { Customer } from "@/app/(server)/types/customer";
-import { Order } from "@/app/(server)/types/order";
+import { Customer } from "@/types/customer";
+import { Order } from "@/types/order";
 import { Address } from "@/components/address";
+import { calculateOrdersTotal } from "@/utils/order";
 
 export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
   {
@@ -73,9 +74,7 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
       )
     },
     cell: ({ row }) => {
-      const city = row.original.city;
-      const street = row.original.street;
-      return <Address city={city} street={street} />;
+      return <Address customer={row.original} />;
     },
   },
   {
@@ -88,14 +87,11 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
       )
     },
     cell: ({ row }) => {
-      return <TotalOrdersPrice orders={row.original.orders} />;
+      return <CustomerBalance orders={row.original.orders} />;
     },
     sortingFn: (rowA, rowB) => {
-      function total(orders: Order[]) {
-        return orders.reduce((total, order) => total + (order.paid ? order.total : -order.total), 0)
-      }
-      const totalA = total(rowA.original.orders);
-      const totalB = total(rowB.original.orders);
+      const totalA = calculateOrdersTotal(rowA.original.orders);
+      const totalB = calculateOrdersTotal(rowB.original.orders);
       return totalA - totalB;
     }
   },

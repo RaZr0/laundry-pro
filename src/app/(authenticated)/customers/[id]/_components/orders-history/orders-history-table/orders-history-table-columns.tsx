@@ -1,18 +1,14 @@
 "use client"
 
-import { Order } from "@/app/(server)/types/order";
 import { SortingHeader } from "@/components/data-table";
-import { cn } from "@/lib/utils";
+import { Order } from "@/types/order";
 import { formatDateAndTime } from "@/utils/dates";
+import { calculateOrderTotal } from "@/utils/order";
 import { formatPrice } from "@/utils/price";
 import { ColumnDef } from "@tanstack/react-table";
+import { OrderItems } from "../order-items";
+import { OrderStatus } from "../order-status";
 
-const STATUSES_MAP: Record<string, {className: string, label : string}> = {
-  "pending": { className: "bg-yellow-100 text-yellow-800", label: "ממתין" },
-  "in_progress": { className: "bg-blue-100 text-blue-800", label: "בטיפול" },
-  "completed": { className: "bg-green-100 text-green-800", label: "הושלם" },
-  "cancelled": { className: "bg-red-100 text-red-800", label: "בוטל" },
-}
 
 export const ORDERS_HISTORY_COLUMNS: ColumnDef<Order>[] = [
   {
@@ -55,18 +51,22 @@ export const ORDERS_HISTORY_COLUMNS: ColumnDef<Order>[] = [
         </SortingHeader>
       )
     },
+    cell: ({ row }) => {
+      return (<OrderItems orderItems={row.original.orderItems} />
+      )
+    }
   },
   {
     accessorKey: "total",
     header: ({ column }) => {
       return (
         <SortingHeader column={column}>
-          סה"כ
+          {'סה"כ'}
         </SortingHeader>
       )
     },
     cell: ({ row }) => {
-      return <span>{formatPrice(row.original.total)}</span>;
+      return <span>{formatPrice(calculateOrderTotal(row.original))}</span>;
     },
   },
   {
@@ -79,8 +79,7 @@ export const ORDERS_HISTORY_COLUMNS: ColumnDef<Order>[] = [
       )
     },
     cell: ({ row }) => {
-      const status = STATUSES_MAP[row.original.status];
-      return <span className={cn('text-xs font-semibold py-0.5 px-3 border rounded-full', status?.className)}>{status?.label}</span>;
+      return (<OrderStatus order={row.original}/> );
     },
   },
 ]

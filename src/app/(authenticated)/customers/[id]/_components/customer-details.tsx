@@ -1,6 +1,10 @@
-import { Customer } from "@/app/(server)/types/customer";
 import { Address } from "@/components/address";
+import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
+import { Customer } from "@/types/customer";
+import { calculateBalance } from "@/utils/customer";
+import { formatPrice } from "@/utils/price";
+import { CreditCard } from "lucide-react";
 
 type CustomerDetailsProps = {
     customer: Customer;
@@ -28,7 +32,15 @@ export function CustomerDetails({ customer }: CustomerDetailsProps) {
                     direction: 'ltr',
                     textAlign: 'right',
                 }}>{customer.phone}</span>} />
-                <Detail title="כתובת" value={<Address city={customer.city} street={customer.street}/>} />
+                <Detail title="כתובת" value={<Address customer={customer} />} />
+                <Detail title="הזמנות" value={customer.orders.length} />
+                <Detail title="חובות וזיכויים" value={<div className="flex justify-between items-center gap-4">
+                    <span>{formatPrice(calculateBalance(customer.orders))}</span>
+                    <Button variant="outline">
+                        <CreditCard />
+                        שלם יתרה
+                    </Button>
+                </div>} />
             </div>
         </Card>
     );

@@ -1,11 +1,18 @@
 import { PrismaClient } from "./prisma/generated/client";
 
-export function createUser({id, email, name}: {id: string, email: string, name: string}) {
-  return new PrismaClient().user.create({
-    data : {
+export async function createUser({ id, email, name }: { id: string, email: string, name: string }) {
+  try {
+    return await new PrismaClient().user.create({
+      data: {
         id,
         email,
         name,
-    }
-  })  
+      }
+    })
+  }
+  catch (error) {
+    console.error("Error creating user:", error);
+    throw new Error("Failed to create user");
+  }
+
 } 

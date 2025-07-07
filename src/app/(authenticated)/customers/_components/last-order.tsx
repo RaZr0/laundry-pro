@@ -1,4 +1,4 @@
-import { Order } from '@/app/(server)/types/order';
+import { Order } from '@/types/order';
 import { formatDate } from '@/utils/dates';
 
 export function LastOrder({ orders }: { orders: Order[] }) {
