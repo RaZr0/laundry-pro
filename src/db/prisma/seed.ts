@@ -1,6 +1,8 @@
 import { PrismaClient } from './generated/client';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
+  .$extends(withAccelerate());
 
 async function main() {
   // Create a user
