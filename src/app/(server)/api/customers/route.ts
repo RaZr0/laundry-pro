@@ -18,6 +18,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
     const user = await currentUser();
-    createCustomer(user as User, await request.json());
+    await createCustomer(user as User, await request.json());
     return new Response();
 }
