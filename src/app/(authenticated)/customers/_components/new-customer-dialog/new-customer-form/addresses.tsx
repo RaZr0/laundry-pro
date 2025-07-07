@@ -54,7 +54,10 @@ export function Addresses({ form }: { form: UseFormReturn<z.infer<typeof FormSch
                         <FormItem>
                             <FormLabel>קומה</FormLabel>
                             <FormControl>
-                                <Input placeholder="2" {...field} autoComplete="new-password" type="number"/>
+                                <Input placeholder="2" {...field} autoComplete="new-password" type="number"
+                                    onChange={(e) => {
+                                        field.onChange(e.target.value !== "" ? Number(e.target.value) : undefined)
+                                    }} />
                             </FormControl>
                         </FormItem>
                     )}
@@ -66,7 +69,11 @@ export function Addresses({ form }: { form: UseFormReturn<z.infer<typeof FormSch
                         <FormItem>
                             <FormLabel>מספר דירה</FormLabel>
                             <FormControl>
-                                <Input placeholder="-1" {...field} autoComplete="new-password" type="number"/>
+                                <Input placeholder="-1" {...field} autoComplete="new-password" type="number"
+                                    onChange={(e) => {
+                                        field.onChange(e.target.value !== "" ? Number(e.target.value) : undefined)
+                                    }}
+                                />
                             </FormControl>
                         </FormItem>
                     )}
@@ -83,7 +90,7 @@ export function Addresses({ form }: { form: UseFormReturn<z.infer<typeof FormSch
                         </FormItem>
                     )}
                 />
-                  <FormField
+                <FormField
                     control={form.control}
                     name="apartmentEntryCode"
                     render={({ field }) => (
