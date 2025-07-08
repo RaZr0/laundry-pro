@@ -1,17 +1,20 @@
+'use client'
+
 import { OrderStatus } from "@/components/order-status";
 import { Page } from "@/components/page";
-import { getByOrderNumber } from "@/db/orders";
+import { useFetchOrder } from "@/hooks/actions/orders/queries/useFetchOrder";
 import { Order } from "@/types/order";
 import { formatDateAndTime } from "@/utils/dates";
-import { currentUser, User } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { OrderView } from "./_components/order-view";
+import { Skeleton } from "@/components/ui/skeleton";
 
-type OrderPageProps = {
-    params: Promise<{ id: string }>;
-};
+function PageTitle({ data }: { data?: Order }) {
 
-function PageTitle({ data }: { data: Order }) {
+    if(!data) {
+        return <Skeleton className="h-[50px] w-[200px]" />;
+    }
+
     return <div className="flex flex-col gap-1">
         <span>{`הזמנה ${data.orderNumber}`}</span>
         <div className="flex items-center gap-2 text-muted-foreground text-sm font-normal">
@@ -22,18 +25,17 @@ function PageTitle({ data }: { data: Order }) {
     </div>;
 }
 
-export default async function OrderPage({ params }: OrderPageProps) {
-    const { id } = await params;
-    const user = await currentUser();
-    const order = await getByOrderNumber(user as User, id) as unknown as Order;
+export default function OrderPage() {
+    const { id } = useParams();
+    const { data: order, isLoading } = useFetchOrder({ id: id as string });
 
-    if (!order) {
+    if (!order && !isLoading) {
         return redirect('/orders');
     }
 
     return (
-        <Page title={<PageTitle data={order} />}>
-            <OrderView data={order} />
+        <Page title={<PageTitle data={order as Order} />}>
+            <OrderView data={order as Order} />
         </Page>
     );
 }

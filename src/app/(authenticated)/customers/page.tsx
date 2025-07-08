@@ -1,17 +1,17 @@
+'use client'
+
 import { Page } from "@/components/page";
-import { getAll } from "@/db/customers";
-import { currentUser, User } from "@clerk/nextjs/server";
+import { useFetchCustomers } from "@/hooks/actions/customers/useFetchCustomers";
+import { Customer } from "@/types/customer";
 import { CustomersView } from "./_components/customers-view";
 import { TitleActions } from "./_components/title-actions";
-import { Customer } from "@/types/customer";
 
-export default async function CustomersPage() {
-  const user = await currentUser();
-  const data = await getAll(user as User) as unknown as Customer[];
+export default function CustomersPage() {
+  const { data } = useFetchCustomers();
 
   return (
     <Page title="לקוחות" titleActions={<TitleActions />}>
-      <CustomersView data={data} />
+      <CustomersView data={data as Customer[]}/>
     </Page>
   );
 }

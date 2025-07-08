@@ -1,13 +1,14 @@
 import { Address } from "@/components/address";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Customer } from "@/types/customer";
 import { calculateBalance } from "@/utils/customer";
 import { formatPrice } from "@/utils/price";
 import { CreditCard } from "lucide-react";
 
 type CustomerDetailsProps = {
-    data: Customer;
+    data?: Customer;
 }
 
 function Detail({ title, value }: { title: string, value: React.ReactNode }) {
@@ -21,6 +22,10 @@ function Detail({ title, value }: { title: string, value: React.ReactNode }) {
 }
 
 export function CustomerDetails({ data }: CustomerDetailsProps) {
+    if (!data) {
+        return <Skeleton className="h-[400px] w-[full]" />;
+    }
+
     return (
         <Card>
             <CardTitle>

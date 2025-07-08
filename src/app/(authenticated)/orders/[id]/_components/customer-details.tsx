@@ -1,10 +1,7 @@
 import { Address } from "@/components/address";
 import { Card, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Order } from "@/types/order";
-
-type CustomerDetailsProps = {
-    data: Order;
-}
 
 function Detail({ title, value }: { title: string, value: React.ReactNode }) {
     return (
@@ -27,7 +24,14 @@ function ContactInfo({ data }: { data: Order }) {
     )
 }
 
+type CustomerDetailsProps = {
+    data?: Order;
+}
+
 export function CustomerDetails({ data }: CustomerDetailsProps) {
+    if (!data) {
+        return <Skeleton className="h-[400px] w-full" />;
+    }
     return (
         <Card>
             <CardTitle>

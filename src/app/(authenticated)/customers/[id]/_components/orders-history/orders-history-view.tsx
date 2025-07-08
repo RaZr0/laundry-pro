@@ -5,13 +5,18 @@ import { Order } from "@/types/order";
 import { OrdersHistoryList } from "./orders-history-list";
 import { OrdersHistoryTable } from "./orders-history-table/orders-history-table";
 import { Card, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type OrdersHistoryViewProps = {
-    data: Order[];
+    data?: Order[];
 }
 
 export function OrdersHistoryView({ data }: OrdersHistoryViewProps) {
     const isMobile = useIsMobile();
+
+    if(!data){
+        return <Skeleton className="h-[400px] w-full"/>
+    }
 
     return (
         <Card>

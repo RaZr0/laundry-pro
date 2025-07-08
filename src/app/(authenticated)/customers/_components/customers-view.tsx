@@ -5,12 +5,13 @@ import { Customer } from "@/types/customer";
 import { useRouter } from "next/navigation";
 import { CustomersList } from "./customers-list/customers-list";
 import { CustomersTable } from "./customers-table/customers-table";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type CustomersViewProps = {
-    data: Customer[];
+    data?: Customer[];
 }
 
-export function CustomersView({ data }: CustomersViewProps){
+export function CustomersView({ data }: CustomersViewProps) {
     const isMobile = useIsMobile();
     const router = useRouter();
 
@@ -20,7 +21,7 @@ export function CustomersView({ data }: CustomersViewProps){
 
     return (
         <div>
-            {isMobile ? <CustomersList data={data} onCustomerClick={handleCustomerClick} /> : <CustomersTable data={data} onRowClick={handleCustomerClick} />}
+            {data ? ( isMobile ? <CustomersList data={data} onCustomerClick={handleCustomerClick} /> : <CustomersTable data={data} onRowClick={handleCustomerClick} />) : <Skeleton className="h-[400px] w-full" />}
         </div>
     );
 }

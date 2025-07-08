@@ -1,17 +1,17 @@
-import { Page } from "@/components/page";
-import { getAll, getSummary } from "@/db/orders";
-import { currentUser, User } from "@clerk/nextjs/server";
-import { OrdersView } from "./_components/orders-view";
-import { Order } from "@/types/order";
+'use client'
 
-export default async function Orders() {
-    const user = await currentUser();
-    const orders = await getAll(user as User) as unknown as Order[];
-    const summary = await getSummary(user as User);
+import { Page } from "@/components/page";
+import { OrdersView } from "./_components/orders-view";
+import { useFetchOrders } from "@/hooks/actions/orders/queries/useFetchOrders";
+import { useFetchOrdersSummary } from "@/hooks/actions/orders/queries/useFetchOrdersSummary";
+
+export default function Orders() {
+    const { data: orders } = useFetchOrders();
+    const { data: summary } = useFetchOrdersSummary();
 
     return (
         <Page title="הזמנות">
-            <OrdersView data={{ orders, summary }} />
+            <OrdersView orders={orders} summary={summary} />
         </Page>
     );
 }

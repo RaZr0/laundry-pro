@@ -6,13 +6,19 @@ import { OrderPriceSummary } from "./order-price-summary";
 import { OrderSummaryTable } from "./order-summary-table/order-summary-table";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { OrderSummaryList } from "./order-summary-list";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type OrderSummaryViewProps = {
-    data: Order;
+    data?: Order;
 }
 
 export function OrderSummaryView({ data }: OrderSummaryViewProps) {
     const isMobile = useIsMobile();
+
+    if (!data) {
+        return <Skeleton className="h-[400px] w-full" />;
+    }
+
     return (
         <Card>
             <CardTitle>

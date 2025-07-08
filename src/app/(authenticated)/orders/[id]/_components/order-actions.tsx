@@ -1,14 +1,14 @@
 'use client';
 
+import { queryClient } from "@/app/query-client";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useUpdateOrderStatus } from "@/hooks/actions/orders/mutations/useUpdateOrderStatus";
 import { cn } from "@/lib/utils";
 import { Order, OrderStatus } from "@/types/order";
-import { useMutation } from "@tanstack/react-query";
 import { ArrowRight, Check, Clock, Package, X } from "lucide-react";
-import { updateOrderStatus } from "../../services/orders.service";
-import { startTransition, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 function Action({ children, ...props }: ButtonProps) {
     return (
@@ -19,27 +19,26 @@ function Action({ children, ...props }: ButtonProps) {
 }
 
 type OrderActionsProps = {
-    data: Order;
+    data?: Order;
 }
 
 export function OrderActions({ data }: OrderActionsProps) {
     const [loadingActionStatus, setLoadingActionStatus] = useState<OrderStatus>();
-    const router = useRouter();
+    const mutation = useUpdateOrderStatus();
 
-    const mutation = useMutation({
-        mutationFn: async ({ status }: { status: OrderStatus }) => {
-            setLoadingActionStatus(status);
-            return updateOrderStatus(data.orderNumber, status);
-        },
-        onSuccess: () => {
-            startTransition(() => {
-                router.refresh(); // ✅ minimal flicker when used in transition
-    });
+    async function handleActionClick(status: OrderStatus) {
+        setLoadingActionStatus(status);
+        try {
+            await mutation.mutateAsync({ orderNumber: (data as Order).orderNumber, status });
+            queryClient.invalidateQueries({ queryKey: [`api/orders/${(data as Order).orderNumber}`] });
         }
-    });
+        catch (error) {
+            console.log(error);
+        }
+    }
 
-    function handleActionClick(status: OrderStatus) {
-        mutation.mutateAsync({ status });
+    if (!data) {
+        return <Skeleton className="h-[100px] w-full" />
     }
 
     return (
