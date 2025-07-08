@@ -4,11 +4,7 @@ import { CustomerBalance } from "../customer-balance";
 import { LastOrder } from "../last-order";
 import { cn } from "@/lib/utils";
 import { Customer } from "@/types/customer";
-
-type CustomersListProps = {
-    data: Customer[];
-    onCustomerClick?: (customer: Customer) => void;
-}
+import { ListItemRow } from "@/components/list-item-row";
 
 function CustomerItem({ customer, onClick }: { customer: Customer, onClick?: () => void }) {
     return (
@@ -17,25 +13,21 @@ function CustomerItem({ customer, onClick }: { customer: Customer, onClick?: () 
                 <CustomerIcon />
                 <div className="flex flex-col">
                     <span className="font-medium text-lg">{`${customer.firstName} ${customer.lastName}`}</span>
-                    <span className="text-sm text-muted-foreground">{customer.id}</span>
+                    <span className="text-sm text-muted-foreground">{customer.customerNumber}</span>
                 </div>
             </div>
-            <div className="flex flex-col text-sm gap-1">
-                <div className="flex justify-between">
-                    <span className="text-muted-foreground">חובות וזיכויים: </span>
-                    <CustomerBalance orders={customer.orders} />
-                </div>
-                <div>
-                    <span className="text-muted-foreground">הזמנות: </span>
-                    <span>{customer.orders.length}</span>
-                </div>
-                <div>
-                    <span className="text-muted-foreground">הזמנה אחרונה: </span>
-                    <LastOrder orders={customer.orders} />
-                </div>
+            <div className="flex flex-col gap-1">
+                <ListItemRow label="חובות וזיכויים" value={<CustomerBalance orders={customer.orders} />} className="flex justify-between" />
+                <ListItemRow label="הזמנות" value={customer.orders.length} />
+                <ListItemRow label="הזמנה אחרונה" value={<LastOrder orders={customer.orders} />} />
             </div>
         </Card>
     );
+}
+
+type CustomersListProps = {
+    data: Customer[];
+    onCustomerClick?: (customer: Customer) => void;
 }
 
 export function CustomersList({ data, onCustomerClick }: CustomersListProps) {

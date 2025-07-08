@@ -1,8 +1,8 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { NewCustomerForm } from "./new-customer-form/new-customer-form";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { fetchCustomers } from "../../services/customers.service";
-import { customersStore } from "../../customers-store";
+import { NewCustomerForm } from "./new-customer-form/new-customer-form";
 
 type NewCustomerModalProps = {
     open: boolean;
@@ -10,12 +10,15 @@ type NewCustomerModalProps = {
 }
 
 export function NewCustomerDialog({ open, onClose }: NewCustomerModalProps) {
+    const router = useRouter();
+
     const mutation = useMutation({
         mutationFn: async () => {
             return fetchCustomers();
         },
-        onSuccess: (data) => {
-            customersStore.setCustomers(data);
+        onSuccess: () => {
+            onClose?.();
+            router.refresh();
         },
     });
 

@@ -16,7 +16,7 @@ async function main() {
   // Create a customer linked to the user
   const customer = await prisma.customer.create({
     data: {
-      id: `C001`,
+      customerNumber: 'C001',
       firstName: 'Jane',
       lastName: 'Smith',
       phone: '0501234567',
@@ -33,7 +33,7 @@ async function main() {
       prefrencesNotes: 'Prefer eco-friendly products',
       user: {
         connect: {
-          id: user.id,
+          email: user.email,
         },
       },
     },
@@ -81,7 +81,7 @@ async function main() {
   const order = await prisma.order.create({
     data: {
       orderNumber: 'ORD-1234',
-      status: 'pending',
+      status: 'in_progress',
       paid: false,
       customerId: customer.id,
     },

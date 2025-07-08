@@ -1,15 +1,29 @@
 "use client"
 
 import { SortingHeader } from "@/components/data-table";
+import { OrderStatus } from "@/components/order-status";
 import { Order } from "@/types/order";
 import { formatDateAndTime } from "@/utils/dates";
 import { calculateOrderTotal } from "@/utils/order";
 import { formatPrice } from "@/utils/price";
 import { ColumnDef } from "@tanstack/react-table";
-import { OrderItems } from "../order-items";
-import { OrderStatus } from "../../../../../../../components/order-status";
 
-export const ORDERS_HISTORY_COLUMNS: ColumnDef<Order>[] = [
+export const ORDER_COLUMNS: ColumnDef<Order>[] = [
+  {
+    accessorKey: "status",
+    header: ({ column }) => {
+      return (
+        <SortingHeader column={column}>
+          סטאטוס
+        </SortingHeader>
+      )
+    },
+    cell: ({ row }) => {
+      return (
+        <OrderStatus order={row.original} />
+      );
+    },
+  },
   {
     accessorKey: "orderNumber",
     header: ({ column }) => {
@@ -18,6 +32,21 @@ export const ORDERS_HISTORY_COLUMNS: ColumnDef<Order>[] = [
           מספר הזמנה
         </SortingHeader>
       )
+    },
+  },
+  {
+    accessorKey: "customer.name",
+    header: ({ column }) => {
+      return (
+        <SortingHeader column={column}>
+          מספר הזמנה
+        </SortingHeader>
+      )
+    },
+    cell: ({ row }) => {
+      return (
+        <span>{`${row.original.customer.firstName} ${row.original.customer.lastName}`}</span>
+      );
     },
   },
   {
@@ -30,19 +59,13 @@ export const ORDERS_HISTORY_COLUMNS: ColumnDef<Order>[] = [
       )
     },
     cell: ({ row }) => {
-      return <span>{formatDateAndTime(row.original.createdAt)}</span>;
+      return (
+        <span>{formatDateAndTime(row.original.createdAt)}</span>
+      );
     },
-    sortingFn: (rowA, rowB) => {
-      const dateA = new Date(rowA.original.createdAt);
-      const dateB = new Date(rowB.original.createdAt);
-
-      if (dateA < dateB) return 1;
-      if (dateA > dateB) return -1;
-      return 0;
-    }
   },
   {
-    accessorKey: "items",
+    accessorKey: "itemsCount",
     header: ({ column }) => {
       return (
         <SortingHeader column={column}>
@@ -51,34 +74,24 @@ export const ORDERS_HISTORY_COLUMNS: ColumnDef<Order>[] = [
       )
     },
     cell: ({ row }) => {
-      return (<OrderItems data={row.original.orderItems} />
-      )
-    }
+      return (
+        <span>{row.original.orderItems.length}</span>
+      );
+    },
   },
   {
-    accessorKey: "total",
+    accessorKey: "totalPrice",
     header: ({ column }) => {
       return (
         <SortingHeader column={column}>
-          {'סה"כ'}
+          סה״כ
         </SortingHeader>
       )
     },
     cell: ({ row }) => {
-      return <span>{formatPrice(calculateOrderTotal(row.original))}</span>;
-    },
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => {
       return (
-        <SortingHeader column={column}>
-          סטטוס
-        </SortingHeader>
-      )
-    },
-    cell: ({ row }) => {
-      return (<OrderStatus order={row.original}/> );
+        <span>{formatPrice(calculateOrderTotal(row.original))}</span>
+      );
     },
   },
 ]

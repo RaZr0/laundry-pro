@@ -22,12 +22,12 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
     },
     cell: ({ row }) => {
       const name = `${row.original.firstName} ${row.original.lastName}`;
-      const id = row.original.id;
+      const customerNumber = row.original.customerNumber;
       return <div className="flex items-center gap-2">
         <CustomerIcon />
         <div className="flex flex-col">
           <span>{name}</span>
-          <span className="text-muted-foreground">{id}</span>
+          <span className="text-muted-foreground">{customerNumber}</span>
         </div>
       </div>;
     },
@@ -74,7 +74,7 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
       )
     },
     cell: ({ row }) => {
-      return <Address customer={row.original} />;
+      return <Address data={row.original} />;
     },
   },
   {

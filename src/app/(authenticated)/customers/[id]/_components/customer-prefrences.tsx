@@ -2,16 +2,16 @@ import { Customer } from "@/types/customer";
 import { Card, CardTitle } from "@/components/ui/card";
 
 type CustomerPrefrencesProps = {
-    customer: Customer;
+    data: Customer;
 }
 
-export function CustomerPrefrences({ customer }: CustomerPrefrencesProps) {
+export function CustomerPrefrences({ data }: CustomerPrefrencesProps) {
     return (
         <Card>
             <CardTitle>
                 הערות לקוח
             </CardTitle>
-            <p>{customer.prefrencesNotes}</p>
+            <p>{data.prefrencesNotes}</p>
         </Card>
     );
 }

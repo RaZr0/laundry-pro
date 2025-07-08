@@ -2,6 +2,7 @@ import { Order } from "./order";
 
 export type Customer = {
     id: string;
+    customerNumber: string;
     firstName: string;
     lastName: string;
     phone: string;

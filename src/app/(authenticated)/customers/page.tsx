@@ -7,7 +7,7 @@ import { Customer } from "@/types/customer";
 
 export default async function CustomersPage() {
   const user = await currentUser();
-  const data = await getAll(user as User) as Customer[];
+  const data = await getAll(user as User) as unknown as Customer[];
 
   return (
     <Page title="לקוחות" titleActions={<TitleActions />}>

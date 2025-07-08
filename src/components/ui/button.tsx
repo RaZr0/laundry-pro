@@ -36,6 +36,13 @@ const buttonVariants = cva(
   }
 )
 
+export type ButtonProps = React.ComponentProps<"button"> &  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  } & {
+  children?: React.ReactNode
+  isLoading?: boolean
+}
+
 function Button({
   className,
   variant,
@@ -44,19 +51,13 @@ function Button({
   isLoading = false,
   children,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  } & {
-    children?: React.ReactNode
-    isLoading?: boolean
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button"
 
   return (
     <Comp
       data-slot="button"
-      className={cn('cursor-pointer', buttonVariants({ variant, size, className }), isLoading ? 'pointer-events-none opacity-50' : '' )}
+      className={cn('cursor-pointer', buttonVariants({ variant, size, className }), isLoading ? 'pointer-events-none opacity-50' : '')}
       {...props}
     >
       {children}

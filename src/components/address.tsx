@@ -1,11 +1,11 @@
 import { Customer } from "@/types/customer";
 
 type AddressProps = {
-    customer: Customer;
+    data: Customer;
 }
 
-export function Address({ customer }: AddressProps) {
+export function Address({ data }: AddressProps) {
     return (
-        <span>{`${customer.street ? `${customer.street},` : ''} ${customer.city || ''}`}</span>
+        <span>{`${data.street ? `${data.street},` : ''} ${data.city || ''}`}</span>
     );
 }

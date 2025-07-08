@@ -7,16 +7,14 @@ export async function getAll(user: User): Promise<Customer[]> {
             {
                 where: {
                     user: {
-                        every: {
-                            email: user.primaryEmailAddress?.emailAddress,
-                        }
+                        email: user.primaryEmailAddress?.emailAddress,
                     }
                 },
                 include: {
                     orders: {
                         include: {
                             orderItems: {
-                                include: { 
+                                include: {
                                     product: true
                                 }
                             }
@@ -32,22 +30,20 @@ export async function getAll(user: User): Promise<Customer[]> {
     }
 }
 
-export async function getById(user: User, id: string): Promise<Customer | null> {
+export async function getByCustomerNumber(user: User, customerNumber: string): Promise<Customer | null> {
     try {
         return await new PrismaClient().customer.findUnique({
             where: {
-                id,
+                customerNumber,
                 user: {
-                    some: {
-                        email: user.primaryEmailAddress?.emailAddress
-                    }
+                    email: user.primaryEmailAddress?.emailAddress
                 }
             },
             include: {
                 orders: {
-                    include : {
-                        orderItems : {
-                            include : { 
+                    include: {
+                        orderItems: {
+                            include: {
                                 product: true
                             }
                         }
@@ -62,13 +58,21 @@ export async function getById(user: User, id: string): Promise<Customer | null> 
     }
 }
 
-export async function createCustomer(user: User, customer: Omit<Customer, 'id' | 'orders'>) {
+export async function createCustomer(user: User, customer: Omit<Customer, 'id' | 'customerNumber' | 'orders' | 'userId'>) {
     const prisma = new PrismaClient();
     try {
+        const userCustomers = await prisma.customer.findMany({
+            where: {
+                user: {
+                    email: user.primaryEmailAddress?.emailAddress
+                }
+            }
+        })
+
         await prisma.customer.create({
             data: {
-                id: `C${(await prisma.customer.count() + 1).toString().padStart(3, '0')}`,
                 ...customer,
+                customerNumber: `C${(userCustomers.length + 1).toString().padStart(3, '0')}`,
                 user: {
                     connect: {
                         email: user.primaryEmailAddress?.emailAddress
