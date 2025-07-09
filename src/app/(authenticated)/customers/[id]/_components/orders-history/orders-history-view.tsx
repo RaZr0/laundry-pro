@@ -9,9 +9,10 @@ import { OrderDto } from "@/dtos/orders/order.dto";
 
 type OrdersHistoryViewProps = {
     data?: OrderDto[];
+    onOrderClick?: (order: OrderDto) => void;
 }
 
-export function OrdersHistoryView({ data }: OrdersHistoryViewProps) {
+export function OrdersHistoryView({ data, onOrderClick }: OrdersHistoryViewProps) {
     const isMobile = useIsMobile();
 
     if(!data){
@@ -23,7 +24,7 @@ export function OrdersHistoryView({ data }: OrdersHistoryViewProps) {
             <CardTitle>
                 היסטוריית הזמנות
             </CardTitle>
-            {isMobile ? <OrdersHistoryList data={data} /> : <OrdersHistoryTable data={data} />}
+            {isMobile ? <OrdersHistoryList data={data} onOrderClick={onOrderClick}/> : <OrdersHistoryTable data={data} onRowClick={onOrderClick}/>}
         </Card>
     );
 }

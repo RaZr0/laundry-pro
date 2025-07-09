@@ -3,7 +3,7 @@
 import { Page } from "@/components/page";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFetchCustomer } from "@/hooks/actions/customers/queries/useFetchCustomer";
-import { redirect, useParams } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { CustomerDetails } from "./_components/customer-details";
 import { CustomerPrefrences } from "./_components/customer-prefrences";
 import { OrdersHistoryView } from "./_components/orders-history/orders-history-view";
@@ -22,6 +22,7 @@ function PageTitle({ data }: { data?: CustomerDto }) {
 export default function CustomerPage() {
   const { id } = useParams();
   const { data , isLoading} = useFetchCustomer({ id: id as string });
+  const router = useRouter();
 
   if (!data && !isLoading) {
     return redirect('/customers');
@@ -35,7 +36,7 @@ export default function CustomerPage() {
           <CustomerPrefrences data={data} />
         </div>
         <div className="overflow-x-hidden">
-          <OrdersHistoryView data={data?.orders} />
+          <OrdersHistoryView data={data?.orders} onOrderClick={(order) => router.push(`/orders/${order.orderNumber}`)}/>
         </div>
       </div>
     </Page>

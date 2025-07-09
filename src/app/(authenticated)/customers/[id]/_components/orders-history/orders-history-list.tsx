@@ -23,13 +23,14 @@ function OrderItem({ data }: { data: OrderDto }) {
 
 type OrdersHistoryListProps = {
     data: OrderDto[];
+    onOrderClick?: (order: OrderDto) => void;
 }
 
-export function OrdersHistoryList({ data }: OrdersHistoryListProps) {
+export function OrdersHistoryList({ data, onOrderClick }: OrdersHistoryListProps) {
     return (
         <ul className="flex flex-col gap-6">
             {data.map((order) => (
-                <li key={order.id}>
+                <li key={order.id} onClick={() => onOrderClick?.(order)} className="cursor-pointer">
                     <OrderItem data={order} />
                 </li>
 
