@@ -10,6 +10,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
     const user = await currentUser();
-    await createOrder(user as User, await request.json());
-    return Response.json({});
+    const createdOrder = await createOrder(user as User, await request.json());
+    return Response.json({
+        orderNumber: createdOrder.orderNumber
+    });
 }

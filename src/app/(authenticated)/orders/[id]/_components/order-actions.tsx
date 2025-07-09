@@ -1,6 +1,5 @@
 'use client';
 
-import { queryClient } from "@/app/query-client";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,7 +20,6 @@ export function OrderActions({ data }: OrderActionsProps) {
         setLoadingActionStatus(status);
         try {
             await mutation.mutateAsync({ orderNumber: (data as OrderDto).orderNumber, status });
-            queryClient.invalidateQueries({ queryKey: [`api/orders/${(data as OrderDto).orderNumber}`] });
         }
         catch (error) {
             console.log(error);

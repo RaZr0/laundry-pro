@@ -1,9 +1,12 @@
+import { queryClient } from "@/app/query-client";
 import { CreateCustomerDto } from "@/dtos/customers/create-customer.dto";
 import { useMutation } from "@tanstack/react-query";
 
+const API_URL = '/api/customers';
+
 async function createCustomer(request: CreateCustomerDto): Promise<void> {
     try {
-        const res = await fetch('/api/customers', {
+        const res = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,6 +27,9 @@ export function useCreateCustomer() {
         mutationFn: async (data: CreateCustomerDto) => {
             return createCustomer(data);
         },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [API_URL] });
+        }
     });
 
     return mutation;

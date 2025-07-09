@@ -1,3 +1,4 @@
+import { queryClient } from "@/app/query-client";
 import { updateOrderStatusDto } from "@/dtos/orders/update-order-status.dto";
 import { useMutation } from "@tanstack/react-query";
 
@@ -20,6 +21,9 @@ export function useUpdateOrderStatus() {
         mutationFn: async (data: updateOrderStatusDto) => {
             return updateOrderStatus(data);
         },
+        onSuccess: (_, data) => {
+            queryClient.invalidateQueries({ queryKey: [`api/orders/${data.orderNumber}`] });
+        }
     });
 
     return mutation;

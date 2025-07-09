@@ -11,11 +11,10 @@ import { Prefrences } from "./prefrences";
 import { FormSchema } from "./schema/schema";
 
 type NewCustomerFormProps = {
-    onCreated: (data: z.infer<typeof FormSchema>) => void;
     onClose: () => void;
 }
 
-export function NewCustomerForm({ onCreated, onClose }: NewCustomerFormProps) {
+export function NewCustomerForm({ onClose }: NewCustomerFormProps) {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -45,7 +44,6 @@ export function NewCustomerForm({ onCreated, onClose }: NewCustomerFormProps) {
     async function onSubmitForm(data: z.infer<typeof FormSchema>) {
         try {
             await mutation.mutateAsync(data);
-            onCreated(data);
             onClose?.();
         }
         catch (error) {

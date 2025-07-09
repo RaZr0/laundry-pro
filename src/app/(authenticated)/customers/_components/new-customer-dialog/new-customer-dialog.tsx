@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { NewCustomerForm } from "./new-customer-form/new-customer-form";
-import { queryClient } from "@/app/query-client";
 
 type NewCustomerModalProps = {
     open: boolean;
@@ -14,7 +13,7 @@ export function NewCustomerDialog({ open, onClose }: NewCustomerModalProps) {
                 <DialogHeader>
                     <DialogTitle>רשום לקוח חדש</DialogTitle>
                 </DialogHeader>
-                <NewCustomerForm onCreated={() => queryClient.invalidateQueries({ queryKey: ['api/customers'] })} onClose={() => onClose?.()} />
+                <NewCustomerForm onClose={() => onClose?.()} />
             </DialogContent>
         </Dialog>
     );

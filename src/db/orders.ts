@@ -85,7 +85,7 @@ export async function getSummary(user: User): Promise<OrdersSummaryDto> {
     }
 }
 
-export async function createOrder(user: User, orderDto: CreateOrderDto) {
+export async function createOrder(user: User, orderDto: CreateOrderDto): Promise<Order> {
     try {
         const prisma = new PrismaClient();
         const orders = await prisma.order.findMany({
@@ -99,43 +99,54 @@ export async function createOrder(user: User, orderDto: CreateOrderDto) {
             }
         })
 
+        const orderNumber = `ORD-${(orders.length + 1).toString().padStart(4, '0')}`;
+        let orderCreated: Order | undefined;
+
         await prisma.$transaction(async (tx) => {
-            const orderCreated = await tx.order.create({
-                data: {
-                    orderNumber: `ORD-${(orders.length + 1).toString().padStart(4, '0')}`,
-                    notes: orderDto.notes,
-                    customerId: orderDto.customerId,
-                    status: "in_progress",
-                },
-            });
+            try {
+                orderCreated = await tx.order.create({
+                    data: {
+                        orderNumber,
+                        notes: orderDto.notes,
+                        customerId: orderDto.customerId,
+                        status: "in_progress",
+                    },
+                });
 
-            await Promise.all(orderDto.orderItems.map(async item => {
-                const product = await tx.product.findUnique({
-                    where : {
-                        id: item.productId,
-                        userId: user.id,
+                await Promise.all(orderDto.orderItems.map(async item => {
+                    const product = await tx.product.findUnique({
+                        where: {
+                            id: item.productId,
+                            user: {
+                                email: user.primaryEmailAddress?.emailAddress,
+                            }
+                        }
+                    })
+
+                    if (!product) {
+                        throw new Error(`Product with ID ${item.productId} not found`);
                     }
-                })
 
-                if (!product) {
-                    throw new Error(`Product with ID ${item.productId} not found`);
+                    await tx.orderItem.create({
+                        data: {
+                            price: product.price,
+                            quantity: item.quantity,
+                            productId: item.productId,
+                            notes: item.notes,
+                            orderId: (orderCreated as Order).id,
+                        },
+                    })
                 }
 
-                await tx.orderItem.create({
-                    data: {
-                        price: product.price,
-                        quantity: item.quantity,
-                        productId: item.productId,
-                        notes: item.notes,
-                        orderId: orderCreated.id,
-                    },
-                })
+                ));
+            }
+            catch (error) {
+                console.error("Error in transaction:", error);
+                throw new Error("Transaction failed");
             }
 
-            ));
         });
-
-        return new Response();
+        return orderCreated as Order;
     }
     catch (error) {
         console.error("Error creating order:", error);
