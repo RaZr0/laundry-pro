@@ -1,7 +1,7 @@
-import { Order } from "@/types/order";
+import { OrderDto } from "@/dtos/orders/order.dto";
 import { calculateOrderTotal } from "./order";
 
-export function calculateBalance(orders: Order[]) {
+export function calculateBalance(orders: OrderDto[]) {
     return orders.reduce((balance, order) => {
         const totalPrice = calculateOrderTotal(order);
         if (order.status === 'completed' && !order.paid) {

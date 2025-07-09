@@ -1,8 +1,7 @@
 'use client'
 
 import { Page } from "@/components/page";
-import { useFetchCustomers } from "@/hooks/actions/customers/useFetchCustomers";
-import { Customer } from "@/types/customer";
+import { useFetchCustomers } from "@/hooks/actions/customers/queries/useFetchCustomers";
 import { CustomersView } from "./_components/customers-view";
 import { TitleActions } from "./_components/title-actions";
 
@@ -11,7 +10,7 @@ export default function CustomersPage() {
 
   return (
     <Page title="לקוחות" titleActions={<TitleActions />}>
-      <CustomersView data={data as Customer[]}/>
+      <CustomersView data={data}/>
     </Page>
   );
 }

@@ -1,12 +1,12 @@
 "use client"
 
 import { DataTable } from "@/components/data-table"
-import { Order } from "@/types/order"
 import { ORDER_COLUMNS } from "./orders-table-columns"
+import { OrderDto } from "@/dtos/orders/order.dto";
 
 type OrdersTableProps = {
-  data: Order[];
-  onRowClick?: (customer: Order) => void;
+  data: OrderDto[];
+  onRowClick?: (customer: OrderDto) => void;
 }
 
 export function OrdersTable({

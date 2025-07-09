@@ -1,9 +1,9 @@
-import { Customer } from "@/types/customer";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CustomerDto } from "@/dtos/customers/customer.dto";
 
 type CustomerPrefrencesProps = {
-    data?: Customer;
+    data?: CustomerDto;
 }
 
 export function CustomerPrefrences({ data }: CustomerPrefrencesProps) {

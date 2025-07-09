@@ -3,10 +3,10 @@ import { CustomerIcon } from "../customer-icon";
 import { CustomerBalance } from "../customer-balance";
 import { LastOrder } from "../last-order";
 import { cn } from "@/lib/utils";
-import { Customer } from "@/types/customer";
 import { ListItemRow } from "@/components/list-item-row";
+import { CustomerDto } from "@/dtos/customers/customer.dto";
 
-function CustomerItem({ customer, onClick }: { customer: Customer, onClick?: () => void }) {
+function CustomerItem({ customer, onClick }: { customer: CustomerDto, onClick?: () => void }) {
     return (
         <Card className={cn('gap-3', onClick ? 'cursor-pointer hover:bg-muted/50' : '')} onClick={onClick}>
             <div className="flex gap-2 items-center">
@@ -26,8 +26,8 @@ function CustomerItem({ customer, onClick }: { customer: Customer, onClick?: () 
 }
 
 type CustomersListProps = {
-    data: Customer[];
-    onCustomerClick?: (customer: Customer) => void;
+    data: CustomerDto[];
+    onCustomerClick?: (customer: CustomerDto) => void;
 }
 
 export function CustomersList({ data, onCustomerClick }: CustomersListProps) {

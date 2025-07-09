@@ -2,14 +2,14 @@
 
 import { Page } from "@/components/page";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useFetchCustomer } from "@/hooks/actions/customers/useFetchCustomer";
-import { Customer } from "@/types/customer";
+import { useFetchCustomer } from "@/hooks/actions/customers/queries/useFetchCustomer";
 import { redirect, useParams } from "next/navigation";
 import { CustomerDetails } from "./_components/customer-details";
 import { CustomerPrefrences } from "./_components/customer-prefrences";
 import { OrdersHistoryView } from "./_components/orders-history/orders-history-view";
+import { CustomerDto } from "@/dtos/customers/customer.dto";
 
-function PageTitle({ data }: { data?: Customer }) {
+function PageTitle({ data }: { data?: CustomerDto }) {
   if(!data){
     return <Skeleton className="h-[50px] w-[200px]"/>
   }

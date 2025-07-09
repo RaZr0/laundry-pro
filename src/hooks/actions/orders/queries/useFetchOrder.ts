@@ -1,7 +1,7 @@
-import { Order } from "@/types/order";
+import { OrderDto } from "@/dtos/orders/order.dto";
 import { useQuery } from "@tanstack/react-query";
 
-async function fetchOrder(request: OrderRequest): Promise<Order> {
+async function fetchOrder(request: OrderRequest): Promise<OrderDto> {
     const response = await fetch(`/api/orders/${request.id}`);
     if (!response.ok) {
         throw new Error('Failed to fetch order');

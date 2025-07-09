@@ -1,14 +1,14 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { Order } from "@/types/order";
 import { OrdersHistoryList } from "./orders-history-list";
 import { OrdersHistoryTable } from "./orders-history-table/orders-history-table";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
 type OrdersHistoryViewProps = {
-    data?: Order[];
+    data?: OrderDto[];
 }
 
 export function OrdersHistoryView({ data }: OrdersHistoryViewProps) {

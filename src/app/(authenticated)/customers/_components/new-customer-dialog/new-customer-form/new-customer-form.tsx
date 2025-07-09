@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useCreateCustomer } from "@/hooks/actions/orders/mutations/useCreateCustomer";
+import { useCreateCustomer } from "@/hooks/actions/customers/mutations/useCreateCustomer";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";

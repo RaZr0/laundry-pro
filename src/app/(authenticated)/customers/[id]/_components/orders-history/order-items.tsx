@@ -1,7 +1,7 @@
-import { OrderItem } from "@/types/order-item";
+import { OrderItemDto } from "@/dtos/order-item.dto";
 
 type OrderItemsProps = {
-    data : OrderItem[];
+    data : OrderItemDto[];
 }
 
 export function OrderItems({ data }: OrderItemsProps) {

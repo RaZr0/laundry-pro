@@ -1,15 +1,15 @@
 'use client';
 
 import { Card, CardTitle } from "@/components/ui/card";
-import { Order } from "@/types/order";
 import { OrderPriceSummary } from "./order-price-summary";
 import { OrderSummaryTable } from "./order-summary-table/order-summary-table";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { OrderSummaryList } from "./order-summary-list";
 import { Skeleton } from "@/components/ui/skeleton";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
 type OrderSummaryViewProps = {
-    data?: Order;
+    data?: OrderDto;
 }
 
 export function OrderSummaryView({ data }: OrderSummaryViewProps) {

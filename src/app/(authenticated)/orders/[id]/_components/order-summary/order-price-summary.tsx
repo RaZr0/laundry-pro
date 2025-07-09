@@ -1,10 +1,10 @@
 import { Separator } from "@/components/ui/separator";
-import { Order } from "@/types/order";
+import { OrderDto } from "@/dtos/orders/order.dto";
 import { calculateOrderTotal } from "@/utils/order";
 import { formatPrice } from "@/utils/price";
 
 type OrderPriceSummaryProps = {
-    data: Order;
+    data: OrderDto;
 }
 
 

@@ -1,6 +1,7 @@
+import { OrderDto } from "@/dtos/orders/order.dto";
 import { useQuery } from "@tanstack/react-query";
 
-async function fetchOrders() {
+async function fetchOrders():Promise<OrderDto[]> {
     const response = await fetch('/api/orders');
     if (!response.ok) {
         throw new Error('Failed to fetch orders');

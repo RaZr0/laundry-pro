@@ -1,16 +1,16 @@
 import { ListItemRow } from "@/components/list-item-row";
 import { OrderStatus } from "@/components/order-status";
 import { Card } from "@/components/ui/card";
-import { Order } from "@/types/order";
+import { OrderDto } from "@/dtos/orders/order.dto";
 import { calculateOrderTotal } from "@/utils/order";
 import { formatPrice } from "@/utils/price";
 
 type OrdersListProps = {
-    data: Order[];
-    onOrderClick?: (order: Order) => void;
+    data: OrderDto[];
+    onOrderClick?: (order: OrderDto) => void;
 }
 
-function OrderItem({ order }: { order: Order }) {
+function OrderItem({ order }: { order: OrderDto }) {
     return (
         <Card>
             <h2 className="font-medium text-lg">{order.orderNumber}</h2>

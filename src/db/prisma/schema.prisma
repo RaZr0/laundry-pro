@@ -19,15 +19,16 @@ model User {
   updatedAt DateTime @updatedAt
 
   customer Customer[]
+  products Product[]
 }
 
 model Customer {
-  id                   String  @id @default(cuid())
-  customerNumber       String  @unique
+  id                   String   @id @default(cuid())
+  customerNumber       String   @unique
   firstName            String
   lastName             String
   phone                String
-  email                String? @unique
+  email                String?  @unique
   city                 String?
   street               String?
   postalCode           String?
@@ -36,17 +37,18 @@ model Customer {
   apartmentEntrance    String?
   apartmentEntryCode   String?
   prefrencesNotes      String?
-  joinMarketing        Boolean @default(false)
-  sendReminders        Boolean @default(false)
-  orderAcceptedAlert   Boolean @default(false)
-  orderInProgressAlert Boolean @default(false)
-  orderReadyAlert      Boolean @default(false)
-  orderDeliveredAlert  Boolean @default(false)
+  joinMarketing        Boolean  @default(false)
+  sendReminders        Boolean  @default(false)
+  orderAcceptedAlert   Boolean  @default(false)
+  orderInProgressAlert Boolean  @default(false)
+  orderReadyAlert      Boolean  @default(false)
+  orderDeliveredAlert  Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 
-  userId   String
-  user     User   @relation(fields: [userId], references: [id])
-  orders   Order[]
-  products Product[]
+  userId String
+  user   User    @relation(fields: [userId], references: [id])
+  orders Order[]
 
   @@unique([customerNumber, userId])
 }
@@ -55,8 +57,9 @@ model Order {
   id          String   @id @default(cuid())
   orderNumber String   @unique
   status      String
-  createdAt   DateTime @default(now())
   paid        Boolean  @default(false)
+  notes       String?
+  createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   customerId String
@@ -69,8 +72,8 @@ model Order {
 
 model OrderItem {
   id        String   @id @default(cuid())
+  price     Float
   quantity  Int
-  service   String
   notes     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -85,21 +88,33 @@ model OrderItem {
 model Product {
   id        String   @id @default(cuid())
   name      String
-  priceUnit Float
   price     Float
+  imageUrl  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  customerId String
-  customer   Customer @relation(fields: [customerId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   orderItems OrderItem[]
 
   serviceCategoryId String
   serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
+
+  priceUnitId String?
+  priceUnit   PriceUnit? @relation(fields: [priceUnitId], references: [id])
 }
 
 model ServiceCategory {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
+}
+
+model PriceUnit {
   id        String   @id @default(cuid())
   name      String
   createdAt DateTime @default(now())

@@ -1,23 +1,24 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { Order, OrdersSummary as OrdersSummaryData } from "@/types/order";
 import { useRouter } from "next/navigation";
 import { OrdersList } from "./orders-list/orders-list";
 import { OrdersTable } from "./orders-table/orders-table";
 import { OrdersSummary } from "./orders-summary";
 import { Skeleton } from "@/components/ui/skeleton";
+import { OrdersSummaryDto } from "@/dtos/orders/orders-summary.dto";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
 type OrdersViewProps = {
-    orders?: Order[];
-    summary?: OrdersSummaryData;
+    orders?: OrderDto[];
+    summary?: OrdersSummaryDto;
 }
 
 export function OrdersView({ orders , summary}: OrdersViewProps) {
     const isMobile = useIsMobile();
     const router = useRouter();
 
-    function handleOrderClick(order: Order) {
+    function handleOrderClick(order: OrderDto) {
         router.push(`/orders/${order.orderNumber}`);
     }
 

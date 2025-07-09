@@ -1,10 +1,10 @@
-import { Order } from "@/types/order";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
-export function calculateOrderTotal(order: Order) {
-    return order.orderItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+export function calculateOrderTotal(order: OrderDto) {
+    return order.orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 }
 
-export function calculateOrdersTotal(orders: Order[]) {
+export function calculateOrdersTotal(orders: OrderDto[]) {
     return orders.reduce((total, order) => {
         const totalPrice = calculateOrderTotal(order);
         return total + totalPrice;

@@ -1,21 +1,21 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { Customer } from "@/types/customer";
 import { useRouter } from "next/navigation";
 import { CustomersList } from "./customers-list/customers-list";
 import { CustomersTable } from "./customers-table/customers-table";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CustomerDto } from "@/dtos/customers/customer.dto";
 
 type CustomersViewProps = {
-    data?: Customer[];
+    data?: CustomerDto[];
 }
 
 export function CustomersView({ data }: CustomersViewProps) {
     const isMobile = useIsMobile();
     const router = useRouter();
 
-    function handleCustomerClick(customer: Customer) {
+    function handleCustomerClick(customer: CustomerDto) {
         router.push(`/customers/${customer.customerNumber}`);
     }
 

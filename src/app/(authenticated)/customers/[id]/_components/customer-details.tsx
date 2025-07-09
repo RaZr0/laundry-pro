@@ -2,13 +2,13 @@ import { Address } from "@/components/address";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Customer } from "@/types/customer";
+import { CustomerDto } from "@/dtos/customers/customer.dto";
 import { calculateBalance } from "@/utils/customer";
 import { formatPrice } from "@/utils/price";
 import { CreditCard } from "lucide-react";
 
 type CustomerDetailsProps = {
-    data?: Customer;
+    data?: CustomerDto;
 }
 
 function Detail({ title, value }: { title: string, value: React.ReactNode }) {

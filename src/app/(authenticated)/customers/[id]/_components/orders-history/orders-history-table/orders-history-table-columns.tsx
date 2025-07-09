@@ -1,15 +1,15 @@
 "use client"
 
 import { SortingHeader } from "@/components/data-table";
-import { Order } from "@/types/order";
 import { formatDateAndTime } from "@/utils/dates";
 import { calculateOrderTotal } from "@/utils/order";
 import { formatPrice } from "@/utils/price";
 import { ColumnDef } from "@tanstack/react-table";
 import { OrderItems } from "../order-items";
 import { OrderStatus } from "../../../../../../../components/order-status";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
-export const ORDERS_HISTORY_COLUMNS: ColumnDef<Order>[] = [
+export const ORDERS_HISTORY_COLUMNS: ColumnDef<OrderDto>[] = [
   {
     accessorKey: "orderNumber",
     header: ({ column }) => {

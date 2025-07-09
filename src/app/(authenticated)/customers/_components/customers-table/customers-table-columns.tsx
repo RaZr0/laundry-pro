@@ -5,12 +5,12 @@ import { CustomerIcon } from "../customer-icon";
 import { LastOrder } from "../last-order";
 import { CustomerBalance } from "../customer-balance";
 import { SortingHeader } from "@/components/data-table";
-import { Customer } from "@/types/customer";
-import { Order } from "@/types/order";
 import { Address } from "@/components/address";
 import { calculateOrdersTotal } from "@/utils/order";
+import { CustomerDto } from "@/dtos/customers/customer.dto";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
-export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
+export const CUSTOMER_COLUMNS: ColumnDef<CustomerDto>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -122,7 +122,7 @@ export const CUSTOMER_COLUMNS: ColumnDef<Customer>[] = [
     },
     cell: ({ row }) => <LastOrder orders={row.original.orders} />,
     sortingFn: (rowA, rowB) => {
-      function sortOrdersByDate(orders: Order[]) {
+      function sortOrdersByDate(orders: OrderDto[]) {
         return orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       }
       const lastOrderA = sortOrdersByDate(rowA.original.orders)[0];

@@ -1,9 +1,9 @@
 import { ListItemRow } from "@/components/list-item-row";
 import { Card, CardTitle } from "@/components/ui/card";
-import { OrderItem as OrderItemData } from "@/types/order-item";
+import { OrderItemDto } from "@/dtos/order-item.dto";
 import { formatPrice } from "@/utils/price";
 
-function OrderItem({ orderItem }: { orderItem: OrderItemData }) {
+function OrderItem({ orderItem }: { orderItem: OrderItemDto }) {
     return (
         <Card>
             <CardTitle>
@@ -13,14 +13,14 @@ function OrderItem({ orderItem }: { orderItem: OrderItemData }) {
                 <ListItemRow label="כמות" value={orderItem.quantity} />
                 <ListItemRow label="סוג שירות" value={orderItem.product.serviceCategory.name} />
                 <ListItemRow label="הערות מיוחדות" value={orderItem.notes ?? '-'} />
-                <ListItemRow label="מחיר" value={formatPrice(orderItem.product.price)} />
+                <ListItemRow label="מחיר" value={formatPrice(orderItem.price)} />
             </div>
         </Card>
     );
 }
 
 type OrderSummaryListProps = {
-    data: OrderItemData[];
+    data: OrderItemDto[];
 }
 
 export function OrderSummaryList({ data }: OrderSummaryListProps) {

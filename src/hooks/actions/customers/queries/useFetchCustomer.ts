@@ -1,7 +1,7 @@
-import { Customer } from "@/types/customer";
+import { CustomerDto } from "@/dtos/customers/customer.dto";
 import { useQuery } from "@tanstack/react-query";
 
-async function fetchCustomer(request: FetchCustomerRequest): Promise<Customer> {
+async function fetchCustomer(request: FetchCustomerRequest): Promise<CustomerDto> {
     try {
         const res = await fetch(`/api/customers/${request.id}`);
         if (!res.ok) {

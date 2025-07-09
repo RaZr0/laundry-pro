@@ -1,6 +1,7 @@
+import { OrdersSummaryDto } from "@/dtos/orders/orders-summary.dto";
 import { useQuery } from "@tanstack/react-query";
 
-async function fetchOrdersSummary() {
+async function fetchOrdersSummary(): Promise<OrdersSummaryDto> {
     const response = await fetch('/api/orders/summary');
     if (!response.ok) {
         throw new Error('Failed to fetch orders summmary');

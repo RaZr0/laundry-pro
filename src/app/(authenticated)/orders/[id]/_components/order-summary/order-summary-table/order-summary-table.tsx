@@ -1,9 +1,9 @@
 import { DataTable } from "@/components/data-table";
-import { OrderItem } from "@/types/order-item";
+import { OrderItemDto } from "@/dtos/order-item.dto";
 import { ORDER_SUMMARY_COLUMNS } from "./order-summary-table-columns";
 
 type OrderSummaryTableProps = {
-    data: OrderItem[];
+    data: OrderItemDto[];
 }
 
 export function OrderSummaryTable({ data }: OrderSummaryTableProps) {

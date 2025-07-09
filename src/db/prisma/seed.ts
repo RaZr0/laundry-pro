@@ -46,32 +46,37 @@ async function main() {
     },
   });
 
+  // Create a price unit
+  const priceUnit = await prisma.priceUnit.create({
+    data: {
+      name: 'לק״ג',
+    },
+  });
+
   // Create 3 products
   const products = await Promise.all([
     prisma.product.create({
       data: {
         name: 'חולצה',
-        priceUnit: 10,
+        priceUnitId: priceUnit.id,
         price: 10,
-        customerId: customer.id,
+        userId: user.id,
         serviceCategoryId: category.id,
       },
     }),
     prisma.product.create({
       data: {
         name: 'שמלה',
-        priceUnit: 30,
         price: 30,
-        customerId: customer.id,
+        userId: user.id,
         serviceCategoryId: category.id,
       },
     }),
     prisma.product.create({
       data: {
         name: "ג'קט חליפה",
-        priceUnit: 50,
         price: 50,
-        customerId: customer.id,
+        userId: user.id,
         serviceCategoryId: category.id,
       },
     }),
@@ -91,8 +96,8 @@ async function main() {
   await Promise.all([
     prisma.orderItem.create({
       data: {
+        price: products[0].price,
         quantity: 1,
-        service: 'Wash & Fold',
         notes: 'Handle gently',
         orderId: order.id,
         productId: products[0].id,
@@ -100,16 +105,16 @@ async function main() {
     }),
     prisma.orderItem.create({
       data: {
+        price: products[1].price,
         quantity: 1,
-        service: 'Dry Clean',
         orderId: order.id,
         productId: products[1].id,
       },
     }),
     prisma.orderItem.create({
       data: {
+        price: products[2].price,
         quantity: 1,
-        service: 'Steam Clean',
         orderId: order.id,
         productId: products[2].id,
       },

@@ -1,12 +1,12 @@
 "use client"
 
 import { DataTable } from "@/components/data-table"
-import { Customer } from "@/types/customer"
 import { CUSTOMER_COLUMNS } from "./customers-table-columns"
+import { CustomerDto } from "@/dtos/customers/customer.dto";
 
 type CustomersTableProps = {
-  data: Customer[];
-  onRowClick?: (customer: Customer) => void;
+  data: CustomerDto[];
+  onRowClick?: (customer: CustomerDto) => void;
 }
 
 export function CustomersTable({

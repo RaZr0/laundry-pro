@@ -1,11 +1,11 @@
 "use client"
 
 import { SortingHeader } from "@/components/data-table";
-import { OrderItem } from "@/types/order-item";
+import { OrderItemDto } from "@/dtos/order-item.dto";
 import { formatPrice } from "@/utils/price";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const ORDER_SUMMARY_COLUMNS: ColumnDef<OrderItem>[] = [
+export const ORDER_SUMMARY_COLUMNS: ColumnDef<OrderItemDto>[] = [
   {
     accessorKey: "product",
     header: ({ column }) => {
@@ -72,7 +72,7 @@ export const ORDER_SUMMARY_COLUMNS: ColumnDef<OrderItem>[] = [
       )
     },
     cell: ({ row }) => {
-      const totalPrice = row.original.product.price * row.original.quantity;
+      const totalPrice = row.original.price * row.original.quantity;
       return (
         <span>{formatPrice(totalPrice)}</span>
       );

@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { OrdersSummary as OrdersSummaryData } from "@/types/order";
+import { OrdersSummaryDto } from "@/dtos/orders/orders-summary.dto";
 
 function OrderSummary({ title, value }: { title: string, value: React.ReactNode }) {
     return (
@@ -12,7 +12,7 @@ function OrderSummary({ title, value }: { title: string, value: React.ReactNode 
 }
 
 type OrdersSummaryProps = {
-    data?: OrdersSummaryData;
+    data?: OrdersSummaryDto;
 }
 
 function SummarySkeleton() {

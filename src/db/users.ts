@@ -14,5 +14,4 @@ export async function createUser({ id, email, name }: { id: string, email: strin
     console.error("Error creating user:", error);
     throw new Error("Failed to create user");
   }
-
 } 

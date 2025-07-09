@@ -1,4 +1,4 @@
-export type ServiceCategory = {
+export type PriceUnitDto = {
     id: string;
     name: string;
     createdAt: Date;

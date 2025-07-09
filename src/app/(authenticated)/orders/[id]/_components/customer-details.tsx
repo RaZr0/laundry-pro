@@ -1,7 +1,7 @@
 import { Address } from "@/components/address";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Order } from "@/types/order";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
 function Detail({ title, value }: { title: string, value: React.ReactNode }) {
     return (
@@ -12,7 +12,7 @@ function Detail({ title, value }: { title: string, value: React.ReactNode }) {
     );
 }
 
-function ContactInfo({ data }: { data: Order }) {
+function ContactInfo({ data }: { data: OrderDto }) {
     return (
         <div className="flex flex-col">
             <span>{data.customer.email}</span>
@@ -25,7 +25,7 @@ function ContactInfo({ data }: { data: Order }) {
 }
 
 type CustomerDetailsProps = {
-    data?: Order;
+    data?: OrderDto;
 }
 
 export function CustomerDetails({ data }: CustomerDetailsProps) {

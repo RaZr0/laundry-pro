@@ -1,6 +1,6 @@
-import { Order } from "./order";
+import { OrderDto } from "../orders/order.dto";
 
-export type Customer = {
+export type CustomerDto = {
     id: string;
     customerNumber: string;
     firstName: string;
@@ -21,5 +21,5 @@ export type Customer = {
     orderInProgressAlert: boolean;
     orderReadyAlert: boolean;
     orderDeliveredAlert: boolean;
-    orders: Order[];
+    orders: OrderDto[];
 }

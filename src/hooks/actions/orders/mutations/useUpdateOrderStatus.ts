@@ -1,7 +1,7 @@
-import { OrderStatus } from "@/types/order";
+import { updateOrderStatusDto } from "@/dtos/orders/update-order-status.dto";
 import { useMutation } from "@tanstack/react-query";
 
-async function updateOrderStatus(request: CreateCustomerRequest) {
+async function updateOrderStatus(request: updateOrderStatusDto): Promise<void> {
     const response = await fetch(`/api/orders/${request.orderNumber}/update-status`, {
         method: 'PATCH',
         headers: {
@@ -15,14 +15,9 @@ async function updateOrderStatus(request: CreateCustomerRequest) {
     }
 }
 
-export type CreateCustomerRequest = {
-    orderNumber: string;
-    status: OrderStatus;
-}
-
 export function useUpdateOrderStatus() {
     const mutation = useMutation({
-        mutationFn: async (data: CreateCustomerRequest) => {
+        mutationFn: async (data: updateOrderStatusDto) => {
             return updateOrderStatus(data);
         },
     });

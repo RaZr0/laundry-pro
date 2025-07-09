@@ -1,7 +1,7 @@
-import { Customer } from "@/types/customer";
+import { CustomerDto } from "@/dtos/customers/customer.dto";
 
 type AddressProps = {
-    data: Customer;
+    data: CustomerDto;
 }
 
 export function Address({ data }: AddressProps) {

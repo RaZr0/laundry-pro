@@ -1,10 +1,10 @@
-import { Order } from "@/types/order";
+import { OrderDto } from "@/dtos/orders/order.dto";
 import { CustomerDetails } from "./customer-details";
 import { OrderActions } from "./order-actions";
 import { OrderSummaryView } from "./order-summary/order-summary-view";
 
 type OrderViewProps = {
-    data?: Order;
+    data?: OrderDto;
 }
 
 export function OrderView({ data }: OrderViewProps) {

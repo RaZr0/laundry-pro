@@ -3,13 +3,13 @@
 import { OrderStatus } from "@/components/order-status";
 import { Page } from "@/components/page";
 import { useFetchOrder } from "@/hooks/actions/orders/queries/useFetchOrder";
-import { Order } from "@/types/order";
 import { formatDateAndTime } from "@/utils/dates";
 import { redirect, useParams } from "next/navigation";
 import { OrderView } from "./_components/order-view";
 import { Skeleton } from "@/components/ui/skeleton";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
-function PageTitle({ data }: { data?: Order }) {
+function PageTitle({ data }: { data?: OrderDto }) {
 
     if(!data) {
         return <Skeleton className="h-[50px] w-[200px]" />;
@@ -34,8 +34,8 @@ export default function OrderPage() {
     }
 
     return (
-        <Page title={<PageTitle data={order as Order} />}>
-            <OrderView data={order as Order} />
+        <Page title={<PageTitle data={order} />}>
+            <OrderView data={order} />
         </Page>
     );
 }

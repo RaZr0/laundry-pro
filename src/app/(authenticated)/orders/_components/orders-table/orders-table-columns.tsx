@@ -2,13 +2,13 @@
 
 import { SortingHeader } from "@/components/data-table";
 import { OrderStatus } from "@/components/order-status";
-import { Order } from "@/types/order";
+import { OrderDto } from "@/dtos/orders/order.dto";
 import { formatDateAndTime } from "@/utils/dates";
 import { calculateOrderTotal } from "@/utils/order";
 import { formatPrice } from "@/utils/price";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const ORDER_COLUMNS: ColumnDef<Order>[] = [
+export const ORDER_COLUMNS: ColumnDef<OrderDto>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => {

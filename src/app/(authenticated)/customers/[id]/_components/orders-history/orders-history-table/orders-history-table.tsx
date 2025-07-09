@@ -1,9 +1,9 @@
 import { DataTable } from "@/components/data-table";
-import { Order } from "@/types/order";
 import { ORDERS_HISTORY_COLUMNS } from "./orders-history-table-columns";
+import { OrderDto } from "@/dtos/orders/order.dto";
 
 type OrdersHistoryTableProps = {
-    data: Order[];
+    data: OrderDto[];
 }
 
 export function OrdersHistoryTable({ data }: OrdersHistoryTableProps) {

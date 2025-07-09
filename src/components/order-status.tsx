@@ -1,7 +1,7 @@
+import { OrderDto, OrderStatusDto } from "@/dtos/orders/order.dto";
 import { cn } from "@/lib/utils";
-import { Order, OrderStatus as Status } from "@/types/order";
 
-const STATUSES_MAP: Record<Status, { className: string, label: string }> = {
+const STATUSES_MAP: Record<OrderStatusDto, { className: string, label: string }> = {
     "in_progress": { className: "bg-blue-100 text-blue-800", label: "בטיפול" },
     "ready": { className: "bg-green-100 text-green-800", label: "מוכן" },
     "completed": { className: "bg-gray-100 text-gray-800", label: "הושלם" },
@@ -10,7 +10,7 @@ const STATUSES_MAP: Record<Status, { className: string, label: string }> = {
 }
 
 type OrderStatusProps = {
-    order: Order;
+    order: OrderDto;
 }
 
 export function OrderStatus({ order }: OrderStatusProps) {
