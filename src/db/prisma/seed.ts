@@ -326,7 +326,7 @@ async function createNewAndSeed({ name, email }: { name: string, email: string }
 
 async function main() {
   await createNewAndSeed({ name: 'Raz Romano', email: '90razro@gmail.com' });
-  await createNewAndSeed({ name: 'Yanki', email: 'Yanki1770@gmail.com' });
+  await createNewAndSeed({ name: 'Yanki', email: 'yanki1770@gmail.com' });
   await createNewAndSeed({ name: 'Gershon Pinsky', email: 'gershon.pinsky564@gmail.com' });
   console.log('✅ Seed completed');
 }
