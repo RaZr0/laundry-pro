@@ -19,7 +19,7 @@ export function OrderActions({ data }: OrderActionsProps) {
     async function handleActionClick(status: OrderStatusDto) {
         setLoadingActionStatus(status);
         try {
-            await mutation.mutateAsync({ orderNumber: (data as OrderDto).orderNumber, status });
+            await mutation.mutateAsync({ id: (data as OrderDto).id, status, orderNumber: (data as OrderDto).orderNumber });
         }
         catch (error) {
             console.log(error);

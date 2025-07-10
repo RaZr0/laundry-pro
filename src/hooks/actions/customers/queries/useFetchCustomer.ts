@@ -4,7 +4,7 @@ import { CUSTOMERS_API_URL } from "../api-urls";
 
 async function fetchCustomer(request: FetchCustomerRequest): Promise<CustomerDto> {
     try {
-        const res = await fetch(`${CUSTOMERS_API_URL}/${request.id}`);
+        const res = await fetch(`${CUSTOMERS_API_URL}/${request.customerNumber}`);
         if (!res.ok) {
             throw new Error('Failed to fetch customer');
         }
@@ -15,13 +15,13 @@ async function fetchCustomer(request: FetchCustomerRequest): Promise<CustomerDto
 }
 
 type FetchCustomerRequest = {
-    id: string;
+    customerNumber: string;
 }
 
-export function useFetchCustomer({ id }: { id: string }) {
+export function useFetchCustomer(req: FetchCustomerRequest) {
     const query = useQuery({
-        queryKey: [`${CUSTOMERS_API_URL}/${id}`],
-        queryFn: () => fetchCustomer({ id }),
+        queryKey: [`${CUSTOMERS_API_URL}/${req.customerNumber}`],
+        queryFn: () => fetchCustomer(req),
         enabled: true,
     });
 

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ORDERS_API_URL } from "../api-urls";
 
 async function fetchOrder(request: OrderRequest): Promise<OrderDto> {
-    const response = await fetch(`${ORDERS_API_URL}/${request.id}`);
+    const response = await fetch(`${ORDERS_API_URL}/${request.orderNumber}`);
     if (!response.ok) {
         throw new Error('Failed to fetch order');
     }
@@ -11,13 +11,13 @@ async function fetchOrder(request: OrderRequest): Promise<OrderDto> {
 }
 
 export type OrderRequest = {
-    id: string;
+    orderNumber: string;
 }
 
-export function useFetchOrder({ id }: OrderRequest) {
+export function useFetchOrder(req: OrderRequest) {
     const query = useQuery({
-        queryKey: [`${ORDERS_API_URL}/${id}`],
-        queryFn: () => fetchOrder({ id }),
+        queryKey: [`${ORDERS_API_URL}/${req.orderNumber}`],
+        queryFn: () => fetchOrder(req),
         enabled: true,
     });
 

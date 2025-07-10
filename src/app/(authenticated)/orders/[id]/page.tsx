@@ -27,8 +27,8 @@ function PageTitle({ data }: { data?: OrderDto }) {
 }
 
 export default function OrderPage() {
-    const { id } = useParams();
-    const { data: order, isLoading } = useFetchOrder({ id: id as string });
+    const { orderNumber } = useParams();
+    const { data: order, isLoading } = useFetchOrder({ orderNumber: orderNumber as string });
 
     if (!order && !isLoading) {
         return redirect('/orders');

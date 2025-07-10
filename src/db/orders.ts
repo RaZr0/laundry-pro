@@ -2,6 +2,7 @@ import { User } from "@clerk/nextjs/server";
 import { CreateOrderDto } from "../dtos/orders/create-order";
 import { Order, PrismaClient } from "./prisma/generated/client";
 import { OrdersSummaryDto } from "@/dtos/orders/orders-summary.dto";
+import { UpdateOrderStatusDto } from "@/dtos/orders/update-order-status.dto";
 
 export async function getAll(user: User): Promise<Order[]> {
     try {
@@ -31,7 +32,7 @@ export async function getAll(user: User): Promise<Order[]> {
 
 export async function getByOrderNumber(user: User, orderNumber: string): Promise<Order | null> {
     try {
-        return await new PrismaClient().order.findUnique({
+        return await new PrismaClient().order.findFirst({
             where: {
                 orderNumber,
                 customer: {
@@ -108,8 +109,17 @@ export async function createOrder(user: User, orderDto: CreateOrderDto): Promise
                     data: {
                         orderNumber,
                         notes: orderDto.notes,
-                        customerId: orderDto.customerId,
                         status: "in_progress",
+                        customer: {
+                            connect: {
+                                id: orderDto.customerId,
+                            }
+                        },
+                        user: {
+                            connect: {
+                                email: user.primaryEmailAddress?.emailAddress,
+                            }
+                        }
                     },
                 });
 
@@ -131,13 +141,20 @@ export async function createOrder(user: User, orderDto: CreateOrderDto): Promise
                         data: {
                             price: product.price,
                             quantity: item.quantity,
-                            productId: item.productId,
                             notes: item.notes,
-                            orderId: (orderCreated as Order).id,
+                            product: {
+                                connect: {
+                                    id: item.productId,
+                                }
+                            },
+                            order: {
+                                connect: {
+                                    id: orderCreated!.id,
+                                }
+                            }
                         },
                     })
                 }
-
                 ));
             }
             catch (error) {
@@ -151,5 +168,27 @@ export async function createOrder(user: User, orderDto: CreateOrderDto): Promise
     catch (error) {
         console.error("Error creating order:", error);
         throw new Error("Failed to create order");
+    }
+}
+
+export async function updateOrderStatus(user: User, dto: UpdateOrderStatusDto): Promise<void> {
+    try {
+        await new PrismaClient().order.update({
+            data: {
+                status: dto.status,
+            },
+            where: {
+                id: dto.id,
+                customer: {
+                    user: {
+                        email: user.primaryEmailAddress?.emailAddress,
+                    }
+                }
+            },
+        });
+    }
+    catch (error) {
+        console.error("Error updating order status:", error);
+        throw new Error("Failed to update order status");
     }
 }

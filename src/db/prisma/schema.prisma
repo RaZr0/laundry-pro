@@ -20,15 +20,16 @@ model User {
 
   customer Customer[]
   products Product[]
+  orders   Order[]
 }
 
 model Customer {
   id                   String   @id @default(cuid())
-  customerNumber       String   @unique
+  customerNumber       String   
   firstName            String
   lastName             String
   phone                String
-  email                String?  @unique
+  email                String?  
   city                 String?
   street               String?
   postalCode           String?
@@ -49,13 +50,11 @@ model Customer {
   userId String
   user   User    @relation(fields: [userId], references: [id])
   orders Order[]
-
-  @@unique([customerNumber, userId])
 }
 
 model Order {
   id          String   @id @default(cuid())
-  orderNumber String   @unique
+  orderNumber String   
   status      String
   paid        Boolean  @default(false)
   notes       String?
@@ -67,7 +66,8 @@ model Order {
 
   orderItems OrderItem[]
 
-  @@unique([orderNumber, customerId])
+  userId String
+  user   User @relation(fields: [userId], references: [id])
 }
 
 model OrderItem {

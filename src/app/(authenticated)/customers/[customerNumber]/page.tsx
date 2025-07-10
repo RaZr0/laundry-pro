@@ -22,8 +22,8 @@ function PageTitle({ data }: { data?: CustomerDto }) {
 }
 
 export default function CustomerPage() {
-  const { id } = useParams();
-  const { data , isLoading} = useFetchCustomer({ id: id as string });
+  const { customerNumber } = useParams();
+  const { data , isLoading} = useFetchCustomer({ customerNumber: customerNumber as string });
   const router = useRouter();
 
   if (!data && !isLoading) {

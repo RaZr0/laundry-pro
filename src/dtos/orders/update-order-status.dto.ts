@@ -1,6 +1,6 @@
 import { OrderStatusDto } from "./order.dto";
 
-export type updateOrderStatusDto = {
-    orderNumber: string;
+export type UpdateOrderStatusDto = {
+    id: string;
     status: OrderStatusDto;
 }

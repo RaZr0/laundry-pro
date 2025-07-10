@@ -1,10 +1,10 @@
 import { queryClient } from "@/app/query-client";
-import { updateOrderStatusDto } from "@/dtos/orders/update-order-status.dto";
+import { UpdateOrderStatusDto } from "@/dtos/orders/update-order-status.dto";
 import { useMutation } from "@tanstack/react-query";
-import { UPDATE_ORDER_STATUS_API_URL } from "../api-urls";
+import { ORDERS_API_URL, UPDATE_ORDER_STATUS_API_URL } from "../api-urls";
 
-async function updateOrderStatus(request: updateOrderStatusDto): Promise<void> {
-    const response = await fetch(`${UPDATE_ORDER_STATUS_API_URL.replace('{orderNumber}', request.orderNumber)}`, {
+async function updateOrderStatus(request: UpdateOrderStatusDto): Promise<void> {
+    const response = await fetch(`${UPDATE_ORDER_STATUS_API_URL.replace('{orderId}', request.id)}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -19,11 +19,13 @@ async function updateOrderStatus(request: updateOrderStatusDto): Promise<void> {
 
 export function useUpdateOrderStatus() {
     const mutation = useMutation({
-        mutationFn: async (data: updateOrderStatusDto) => {
+        mutationFn: async (data: UpdateOrderStatusDto & { orderNumber: string}) => {
             return updateOrderStatus(data);
         },
         onSuccess: (_, data) => {
-            queryClient.invalidateQueries({ queryKey: [`${UPDATE_ORDER_STATUS_API_URL.replace('{orderNumber}', data.orderNumber)}`] });
+            console.log(data);
+            
+            queryClient.invalidateQueries({ queryKey: [`${ORDERS_API_URL}/${data.orderNumber}`] });
         }
     });
 

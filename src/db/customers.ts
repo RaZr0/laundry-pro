@@ -32,7 +32,7 @@ export async function getAll(user: User): Promise<Customer[]> {
 
 export async function getByCustomerNumber(user: User, customerNumber: string): Promise<Customer | null> {
     try {
-        return await new PrismaClient().customer.findUnique({
+        return await new PrismaClient().customer.findFirst({
             where: {
                 customerNumber,
                 user: {
