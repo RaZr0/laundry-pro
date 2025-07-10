@@ -14,7 +14,7 @@ import { ProductDto } from "@/dtos/product.dto";
 function Product({ product, onClick }: { product: ProductDto, onClick?: () => void }) {
     const { name, price, imageUrl } = product;
     return (
-        <Button type="button" variant="outline" className={cn('flex flex-col items-center gap-2 text-center p-4 max-w-[200px] min-h-[130px]', !imageUrl ? 'justify-center' : '')} onClick={() => onClick?.()}>
+        <Button type="button" variant="outline" className={cn('flex flex-col items-center gap-2 text-center p-4 max-w-[200px] min-h-[130px] whitespace-normal h-auto justify-baseline', !imageUrl ? 'justify-center' : '')} onClick={() => onClick?.()}>
             {imageUrl && <Image src={imageUrl} alt="" width={56} height={56} />}
             <div className="flex flex-col">
                 <span className="text-sm sm:text-base font-semibold">{name}</span>
