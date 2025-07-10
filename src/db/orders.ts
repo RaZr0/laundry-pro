@@ -173,12 +173,14 @@ export async function createOrder(user: User, orderDto: CreateOrderDto): Promise
 
 export async function updateOrderStatus(user: User, dto: UpdateOrderStatusDto): Promise<void> {
     try {
+        const order = await getByOrderNumber(user, dto.orderNumber);
+
         await new PrismaClient().order.update({
             data: {
                 status: dto.status,
             },
             where: {
-                id: dto.id,
+                id: order?.id,
                 customer: {
                     user: {
                         email: user.primaryEmailAddress?.emailAddress,

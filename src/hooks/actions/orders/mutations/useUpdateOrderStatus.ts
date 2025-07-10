@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { ORDERS_API_URL, UPDATE_ORDER_STATUS_API_URL } from "../api-urls";
 
 async function updateOrderStatus(request: UpdateOrderStatusDto): Promise<void> {
-    const response = await fetch(`${UPDATE_ORDER_STATUS_API_URL.replace('{orderId}', request.id)}`, {
+    const response = await fetch(`${UPDATE_ORDER_STATUS_API_URL.replace('{orderNumber}', request.orderNumber)}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -23,8 +23,6 @@ export function useUpdateOrderStatus() {
             return updateOrderStatus(data);
         },
         onSuccess: (_, data) => {
-            console.log(data);
-            
             queryClient.invalidateQueries({ queryKey: [`${ORDERS_API_URL}/${data.orderNumber}`] });
         }
     });
