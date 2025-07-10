@@ -60,7 +60,7 @@ export function NewCustomerForm({ onClose }: NewCustomerFormProps) {
                 <MarketingAndNotifications form={form} />
                 <div className="flex gap-2 self-end">
                     <Button type="button" variant="outline" onClick={() => onClose()}>ביטול</Button>
-                    <Button type="submit" isLoading={mutation.isPending}>שמור לקוח</Button>
+                    <Button type="submit" isLoading={form.formState.isSubmitting}>שמור לקוח</Button>
                 </div>
             </form>
         </Form>

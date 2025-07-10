@@ -1,9 +1,10 @@
 import { CustomerDto } from "@/dtos/customers/customer.dto";
 import { useQuery } from "@tanstack/react-query";
+import { CUSTOMERS_API_URL } from "../api-urls";
 
 async function fetchCustomers(): Promise<CustomerDto[]> {
     try{
-        const res = await fetch('/api/customers');
+        const res = await fetch(CUSTOMERS_API_URL);
         return res.json();
 
     }
@@ -14,7 +15,7 @@ async function fetchCustomers(): Promise<CustomerDto[]> {
 
 export function useFetchCustomers() {
     const query = useQuery({
-        queryKey: ['api/customers'],
+        queryKey: [CUSTOMERS_API_URL],
         queryFn: fetchCustomers,
         enabled: true,
     });

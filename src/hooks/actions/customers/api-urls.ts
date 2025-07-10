@@ -1,0 +1,1 @@
+export const CUSTOMERS_API_URL = '/api/customers';

@@ -1,9 +1,10 @@
 import { queryClient } from "@/app/query-client";
 import { updateOrderStatusDto } from "@/dtos/orders/update-order-status.dto";
 import { useMutation } from "@tanstack/react-query";
+import { UPDATE_ORDER_STATUS_API_URL } from "../api-urls";
 
 async function updateOrderStatus(request: updateOrderStatusDto): Promise<void> {
-    const response = await fetch(`/api/orders/${request.orderNumber}/update-status`, {
+    const response = await fetch(`${UPDATE_ORDER_STATUS_API_URL.replace('{orderNumber}', request.orderNumber)}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -22,7 +23,7 @@ export function useUpdateOrderStatus() {
             return updateOrderStatus(data);
         },
         onSuccess: (_, data) => {
-            queryClient.invalidateQueries({ queryKey: [`api/orders/${data.orderNumber}`] });
+            queryClient.invalidateQueries({ queryKey: [`${UPDATE_ORDER_STATUS_API_URL.replace('{orderNumber}', data.orderNumber)}`] });
         }
     });
 

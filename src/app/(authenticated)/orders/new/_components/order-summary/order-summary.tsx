@@ -80,7 +80,7 @@ export function OrderSummary({ items }: OrderSummaryProps) {
                 </ul>
                 <Notes notes={notes} onChange={onNotesChange}/>
                 <TotalPrice items={items} />
-                <Button disabled={!formState.isValid}>
+                <Button disabled={!formState.isValid} isLoading={formState.isSubmitting}>
                     שלח הזמנה
                 </Button>
             </div>

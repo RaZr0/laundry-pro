@@ -1,0 +1,1 @@
+export const PRODUCTS_API_URL = '/api/products';

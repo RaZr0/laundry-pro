@@ -2,16 +2,17 @@
 
 import { OrderStatus } from "@/components/order-status";
 import { Page } from "@/components/page";
+import { Skeleton } from "@/components/ui/skeleton";
+import { OrderDto } from "@/dtos/orders/order.dto";
 import { useFetchOrder } from "@/hooks/actions/orders/queries/useFetchOrder";
 import { formatDateAndTime } from "@/utils/dates";
 import { redirect, useParams } from "next/navigation";
-import { OrderView } from "./_components/order-view";
-import { Skeleton } from "@/components/ui/skeleton";
-import { OrderDto } from "@/dtos/orders/order.dto";
+import { CustomerDetails } from "./_components/customer-details";
+import { OrderActions } from "./_components/order-actions";
+import { OrderSummaryView } from "./_components/order-summary/order-summary-view";
 
 function PageTitle({ data }: { data?: OrderDto }) {
-
-    if(!data) {
+    if (!data) {
         return <Skeleton className="h-[50px] w-[200px]" />;
     }
 
@@ -35,7 +36,15 @@ export default function OrderPage() {
 
     return (
         <Page title={<PageTitle data={order} />}>
-            <OrderView data={order} />
+            <div className="grid lg:grid-cols-[1fr_2fr] gap-6">
+                <div className="flex flex-col gap-6">
+                    <CustomerDetails data={order} />
+                </div>
+                <div className="flex flex-col gap-6 overflow-x-hidden">
+                    <OrderSummaryView data={order} />
+                    <OrderActions data={order} />
+                </div>
+            </div>
         </Page>
     );
 }

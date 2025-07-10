@@ -1,11 +1,10 @@
 import { queryClient } from "@/app/query-client";
 import { CreateOrderDto } from "@/dtos/orders/create-order";
 import { useMutation } from "@tanstack/react-query";
-
-const API_URL = '/api/orders';
+import { ORDERS_API_URL } from "../api-urls";
 
 async function createOrder(request: CreateOrderDto): Promise<{orderNumber: string}> {
-    const response = await fetch(API_URL, {
+    const response = await fetch(ORDERS_API_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -29,7 +28,7 @@ export function useCreateOrder() {
             return createOrder(data);
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [API_URL] });
+            queryClient.invalidateQueries({ queryKey: [ORDERS_API_URL] });
         }
     });
 
