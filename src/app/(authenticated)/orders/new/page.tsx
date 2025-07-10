@@ -83,7 +83,7 @@ export default function NewOrderPage() {
                             <ProductsSelection onSelectedProduct={onSelectedProduct} />
                             <OrderItems items={orderItems} onRemove={onRemoveItem} />
                         </div>
-                        <div>
+                        <div className="sticky top-10 h-fit">
                             <OrderSummary items={orderItems} />
                         </div>
                     </form>

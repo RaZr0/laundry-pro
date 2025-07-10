@@ -89,7 +89,7 @@ export function OrderItem({ index, item, onRemove }: OrderItemProps) {
     }
 
     return (<Card className="p-4">
-        <div className="flex justify-between">
+        <div className="flex justify-between max-md:flex-col max-md:gap-4">
             <ProductDetails data={{ price, quantity, serviceCategory, productName}} />
             <div className="flex items-center gap-6">
                 <QuantityCounter quantity={quantity} onChange={onQuantityChange} />
