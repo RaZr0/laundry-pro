@@ -30,7 +30,7 @@ function FilteredResults({ data, onSelect, selectedCustomer }: { data?: Customer
         <>
             {data.map((customer) => {
                 const isSelected = selectedCustomer?.id === customer.id;
-                return (<DropdownMenuItem key={customer.id} className={cn('relative flex gap-2 px-8', isSelected ? 'text-[var(--accent-foreground)] bg-[var(--accent)]' : '')} onClick={() => onSelect?.(customer)}>
+                return (<DropdownMenuItem key={customer.id} className={cn('relative flex gap-2 px-8 !cursor-pointer', isSelected ? 'text-[var(--accent-foreground)] bg-[var(--accent)]' : '')} onClick={() => onSelect?.(customer)}>
                     <div>
                         {isSelected && <Check className="absolute top-1/2 left-2 transform -translate-y-1/2" />}
                         <span>{`${customer.firstName} ${customer.lastName}`}</span>
