@@ -322,6 +322,18 @@ async function createNewAndSeed({ name, email }: { name: string, email: string }
       }),
     ]);
   })
+
+  // Create a printer for the user
+  await prisma.printer.create({
+    data: {
+      name: 'Microsoft Print to PDF',
+      user: {
+        connect: {
+          email,
+        },
+      },
+    },
+  });
 }
 
 async function main() {

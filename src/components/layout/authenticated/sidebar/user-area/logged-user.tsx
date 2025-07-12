@@ -18,7 +18,7 @@ export function LoggedUser() {
                 </div>
             </PopoverTrigger>
             <PopoverContent className="w-[224px] p-0">
-                <UserMenu />
+                <UserMenu onItemClick={() => setUserMenuOpen(false)}/>
             </PopoverContent>
         </Popover>
     )

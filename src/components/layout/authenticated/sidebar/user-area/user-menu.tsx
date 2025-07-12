@@ -16,7 +16,7 @@ type MenuItemProps = {
 }
 
 function MenuItem({ icon, link, onClick, children }: MenuItemProps) {
-    return <li className='hover:bg-muted hover:text-foreground px-6 py-2' onClick={() => onClick?.()}>
+    return <li className='hover:bg-muted hover:text-foreground px-6 py-2 cursor-pointer' onClick={() => onClick?.()}>
         <Link href={link} className="flex gap-2 items-center justify-end">
             <span className="text-sm">
                 {children}
@@ -26,9 +26,9 @@ function MenuItem({ icon, link, onClick, children }: MenuItemProps) {
     </li>
 }
 
-export function UserMenu() {
-    const { user , signOut } = useClerk();
-    
+export function UserMenu({ onItemClick }: { onItemClick?: () => void }) {
+    const { user, signOut } = useClerk();
+
     return (
         <div className="flex flex-col">
             <div className="flex flex-col text-left p-3">
@@ -36,14 +36,16 @@ export function UserMenu() {
                 <span className="text-sm text-muted-foreground">{user?.primaryEmailAddress?.emailAddress}</span>
             </div>
             <Separator />
-            <ul>
+            <ul onClick={() => onItemClick?.()}>
                 <MenuItem link={ROUTES.settings.link} icon={<Settings size={ICON_SIZE} />}>
                     הגדרות
                 </MenuItem>
                 <li>
                     <Separator />
                 </li>
-                <MenuItem link="" icon={<LogOut size={ICON_SIZE} />} onClick={() => signOut()}>
+                <MenuItem link="" icon={<LogOut size={ICON_SIZE} />} onClick={() => {
+                    signOut();
+                }}>
                     התנתק
                 </MenuItem>
             </ul>
