@@ -16,14 +16,14 @@ async function createNewAndSeed({ name, email, withData }: { name: string, email
       },
     });
 
-    await tx.priceUnit.upsert({
-      where: { type: 1 },
-      update: {},
-      create: {
-        type: 1,
-        description: 'לק״ג',
-      },
-    });
+    // await tx.priceUnit.upsert({
+    //   where: { type: 1 },
+    //   update: {},
+    //   create: {
+    //     type: 1,
+    //     description: 'לק״ג',
+    //   },
+    // });
 
     const priceUnitSingle = await tx.priceUnit.upsert({
       where: { type: 2 },
