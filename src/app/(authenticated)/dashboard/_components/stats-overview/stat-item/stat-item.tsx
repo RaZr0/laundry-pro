@@ -43,7 +43,7 @@ function StatusChange(change: number) {
 }
 
 export function StatItemSkeleton() {
-    return <Skeleton className="h-[120px] w-full rounded-2xl" />
+    return <Skeleton className="h-[140px] w-[240px] rounded-2xl" />
 }
 
 export type StatCardProps = {
