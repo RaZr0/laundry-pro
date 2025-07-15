@@ -12,14 +12,12 @@ type CustomerDetailsProps = {
 export function CustomerDetails({ onSelectedCustomer }: CustomerDetailsProps) {
     const { data } = useFetchCustomers();
 
-    return (  
+    return (
         <Card>
             <CardTitle className="text-2xl">
                 פרטי לקוח
             </CardTitle>
-            <div>
-                <CustomerPicker customers={data} onSelected={onSelectedCustomer}/>
-            </div>
+            <CustomerPicker customers={data} onSelected={onSelectedCustomer} />
         </Card>
     );
 }

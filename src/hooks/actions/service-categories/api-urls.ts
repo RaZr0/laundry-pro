@@ -1,0 +1,1 @@
+export const SERVICE_CATEGORIES_API_URL = '/api/service-categories';

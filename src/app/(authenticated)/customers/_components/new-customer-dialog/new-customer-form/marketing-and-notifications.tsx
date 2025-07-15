@@ -2,7 +2,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { FormSectionWrapper } from "./form-section-wrapper";
+import { FormSectionWrapper } from "../../../../../../components/form-section-wrapper";
 import { FormSchema } from "./schema/schema";
 import { Card } from "@/components/ui/card";
 

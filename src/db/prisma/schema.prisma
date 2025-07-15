@@ -18,19 +18,20 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  customer Customer[]
-  products Product[]
-  orders   Order[]
-  printers Printer[]
+  customer          Customer[]
+  products          Product[]
+  orders            Order[]
+  printers          Printer[]
+  serviceCategories ServiceCategory[]
 }
 
 model Customer {
   id                   String   @id @default(cuid())
-  customerNumber       String   
+  customerNumber       String
   firstName            String
   lastName             String
   phone                String
-  email                String?  
+  email                String?
   city                 String?
   street               String?
   postalCode           String?
@@ -55,7 +56,7 @@ model Customer {
 
 model Order {
   id          String   @id @default(cuid())
-  orderNumber String   
+  orderNumber String
   status      String
   paid        Boolean  @default(false)
   notes       String?
@@ -68,7 +69,7 @@ model Order {
   orderItems OrderItem[]
 
   userId String
-  user   User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model OrderItem {
@@ -113,13 +114,16 @@ model ServiceCategory {
   updatedAt DateTime @updatedAt
 
   products Product[]
+  userId   String
+  user     User      @relation(fields: [userId], references: [id])
 }
 
 model PriceUnit {
-  id        String   @id @default(cuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  description String
+  type        Int @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   products Product[]
 }
@@ -131,5 +135,5 @@ model Printer {
   updatedAt DateTime @updatedAt
 
   userId String
-  user   User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }

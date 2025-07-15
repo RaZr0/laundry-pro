@@ -1,0 +1,1 @@
+export const PRINTERS_API_URL = '/api/printers';

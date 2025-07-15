@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const user = await currentUser();
     const createdOrder = await createOrder(user as User, await request.json());
     const base64 = await getExamplePdfBase64();
-    await sendPrintJob({ userId: createdOrder.userId, printer: 'Microsoft Print to PDF', base64 });
+    sendPrintJob({ userId: createdOrder.userId, printer: 'Microsoft Print to PDF', base64 });
     return Response.json({
         orderNumber: createdOrder.orderNumber
     });

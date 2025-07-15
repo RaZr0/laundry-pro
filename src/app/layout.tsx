@@ -6,6 +6,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { Arimo } from 'next/font/google';
 import "./globals.css";
 import { queryClient } from './query-client';
+import { DialogProvider } from '@/providers/dialog-provider';
 
 const arimo = Arimo({
   subsets: ['latin'],
@@ -26,7 +27,7 @@ export default function RootLayout({
       >
         <ClerkProvider localization={heIL}>
           <QueryClientProvider client={queryClient}>
-            {children}
+            <DialogProvider>{children}</DialogProvider>
           </QueryClientProvider>
         </ClerkProvider>
       </body>

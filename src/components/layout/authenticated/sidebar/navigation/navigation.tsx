@@ -23,7 +23,7 @@ export function Navigation() {
                 <NavItem icon={<Receipt size={ICON_SIZE} />} link={ROUTES.accounts.link}>
                     ניהול חשבונות
                 </NavItem>
-                <NavItem icon={<ShoppingBag size={ICON_SIZE} />} link={ROUTES.newOrder.link}>
+                <NavItem icon={<ShoppingBag size={ICON_SIZE} />} link={`${ROUTES.orders.link}${ROUTES.orders.children.new.link}`}>
                     הזמנה חדשה
                 </NavItem>
             </ul>

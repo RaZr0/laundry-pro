@@ -1,0 +1,1 @@
+export const PRICE_UNITS_API_URL = '/api/price-units';

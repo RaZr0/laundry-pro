@@ -38,7 +38,7 @@ export function Footer() {
                     לקוחות
                 </FooterItem>
                 <li className="relative top-[-30px]">
-                    <Link href={ROUTES.newOrder.link}>
+                    <Link href={`${ROUTES.orders.link}${ROUTES.orders.children.new.link}`}>
                         <Button className="h-14 rounded-full !px-6">
                             <Plus />
                         </Button>

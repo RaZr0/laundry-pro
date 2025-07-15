@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { Footer } from "./footer/footer";
 import { Header } from "./header/header";
 import Main from "./main/main";
-import { Sidebar } from "./sidebar/sidebar";
+import { Sidebar, SIDEBAR_WIDTH } from "./sidebar/sidebar";
 import { useEffect, useState } from "react";
 
 export const AuthenticatedLayout = observer(({
@@ -27,8 +27,10 @@ export const AuthenticatedLayout = observer(({
     return (
         <div className="flex flex-col lg:flex-row min-h-screen">
             {isMobile && <Header />}
-            {!isMobile ? <Sidebar /> : <Sidebar.Mobile />}
-            <Main>
+            {!isMobile ? <div className="fixed"><Sidebar /></div> : <Sidebar.Mobile />}
+            <Main style={{
+                marginRight: !isMobile ? SIDEBAR_WIDTH : '',
+            }}>
                 {children}
             </Main>
             {isMobile && <Footer />}

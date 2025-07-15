@@ -18,7 +18,7 @@ function TitleActions() {
     const router = useRouter();
 
     function onCreateNewOrderClick() {
-        router.push(ROUTES.newOrder.link);
+        router.push(`${ROUTES.orders.link}${ROUTES.orders.children.new.link}`);
     }
 
     return (

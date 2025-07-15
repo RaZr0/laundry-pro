@@ -7,6 +7,14 @@ export type ProductDto = {
     price: number;
     imageUrl?: string | null;
     serviceCategory: ServiceCategoryDto;
-    priceUnit?: PriceUnitDto;
+    priceUnit?: PriceUnitDto | null;
     createdAt: Date;
+}
+
+export type CreateProductDto = {
+    name: string;
+    price: number;
+    serviceCategoryId: string;
+    priceUnitId: string;
+    imageUrl?: string | null;
 }

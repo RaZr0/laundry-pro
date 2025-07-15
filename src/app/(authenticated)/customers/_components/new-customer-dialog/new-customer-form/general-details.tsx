@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { format, useMask } from "@react-input/mask";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { FormSectionWrapper } from "./form-section-wrapper";
+import { FormSectionWrapper } from "../../../../../../components/form-section-wrapper";
 import { FormSchema } from "./schema/schema";
 
 const options = {

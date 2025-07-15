@@ -4,3 +4,7 @@ export type ServiceCategoryDto = {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export type CreateServiceCategoryDto = {
+    name: string;
+}

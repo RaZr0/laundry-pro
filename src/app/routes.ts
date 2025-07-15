@@ -7,6 +7,11 @@ export const ROUTES = {
     },
     'orders': {
         link: '/orders',
+        children: {
+            new : {
+                link: '/new',
+            }
+        }
     },
     'shippings': {
         link: '/shippings',
@@ -14,11 +19,16 @@ export const ROUTES = {
     'accounts': {
         link: '/accounts',
     },
-    'newOrder': {
-        link: '/orders/new',
-    },
     'settings': {
         link: '/settings',
+        children: {
+            'printing': {
+                link: '/printing',
+            },
+            'pricing': {
+                link: '/pricing',
+            },
+        }
     },
     'login': {
         link: '/login',

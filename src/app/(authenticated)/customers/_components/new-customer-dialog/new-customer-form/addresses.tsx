@@ -2,7 +2,7 @@ import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/for
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { FormSectionWrapper } from "./form-section-wrapper";
+import { FormSectionWrapper } from "../../../../../../components/form-section-wrapper";
 import { FormSchema } from "./schema/schema";
 
 export function Addresses({ form }: { form: UseFormReturn<z.infer<typeof FormSchema>> }) {

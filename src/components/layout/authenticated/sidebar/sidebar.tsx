@@ -10,14 +10,15 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { observer } from "mobx-react-lite";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 
-const SIDEBAR_WIDTH = '256px';
+export const SIDEBAR_WIDTH = '256px';
 
 export function Sidebar() {
     const isMobile = useIsMobile();
     return (
-        <aside className="w-[256px] shrink-0 z-10 max-lg:fixed h-dvh flex flex-col bg-background border-l"
-            style={{ width: SIDEBAR_WIDTH }}
-        >
+        <aside className="shrink-0 z-10 h-dvh flex flex-col bg-background border-l"
+            style={{
+                width: SIDEBAR_WIDTH,
+            }}>
             <button className="absolute right-4 top-4 lg:hidden cursor-pointer opacity-70" onClick={() => layoutStore.toggleSidebar()}>
                 <X size={16} />
             </button>
@@ -39,7 +40,7 @@ export function Sidebar() {
 Sidebar.Mobile = observer(() => {
     return <Sheet open={layoutStore.isSidebarOpen} onOpenChange={(open) => { layoutStore.toggleSidebar(open) }}>
         <SheetTitle className="sr-only"></SheetTitle>
-        <SheetContent style={{ width: SIDEBAR_WIDTH }}>
+        <SheetContent style={{ width: SIDEBAR_WIDTH }} className="!border-0">
             <Sidebar />
         </SheetContent>
     </Sheet>
