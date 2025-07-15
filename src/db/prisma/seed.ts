@@ -16,8 +16,7 @@ async function createNewAndSeed({ name, email, withData }: { name: string, email
       },
     });
 
-    // Create a price unit
-    const priceUnitKg = await tx.priceUnit.upsert({
+    await tx.priceUnit.upsert({
       where: { type: 1 },
       update: {},
       create: {
@@ -26,7 +25,7 @@ async function createNewAndSeed({ name, email, withData }: { name: string, email
       },
     });
 
-    await tx.priceUnit.upsert({
+    const priceUnitSingle = await tx.priceUnit.upsert({
       where: { type: 2 },
       update: {},
       create: {
@@ -132,7 +131,7 @@ async function createNewAndSeed({ name, email, withData }: { name: string, email
         tx.product.create({
           data: {
             name: 'אבקת כביסה פרימיום',
-            priceUnitId: priceUnitKg.id,
+            priceUnitId: priceUnitSingle.id,
             price: 65,
             serviceCategoryId: serviceCategoryProducts.id,
             userId: user.id,
@@ -163,7 +162,7 @@ async function createNewAndSeed({ name, email, withData }: { name: string, email
         tx.product.create({
           data: {
             name: 'קיצור מכנסיים',
-            priceUnitId: priceUnitKg.id,
+            priceUnitId: priceUnitSingle.id,
             price: 45,
             serviceCategoryId: serviceCategoryFixes.id,
             userId: user.id,
@@ -194,7 +193,7 @@ async function createNewAndSeed({ name, email, withData }: { name: string, email
         tx.product.create({
           data: {
             name: 'גיהוץ חולצה',
-            priceUnitId: priceUnitKg.id,
+            priceUnitId: priceUnitSingle.id,
             price: 25,
             serviceCategoryId: serviceCategoryIroning.id,
             userId: user.id,
@@ -225,7 +224,7 @@ async function createNewAndSeed({ name, email, withData }: { name: string, email
         tx.product.create({
           data: {
             name: 'חולצה/חולצת נשים',
-            priceUnitId: priceUnitKg.id,
+            priceUnitId: priceUnitSingle.id,
             price: 45,
             serviceCategoryId: serviceCategoryDryCleaning.id,
             userId: user.id,
@@ -275,7 +274,7 @@ async function createNewAndSeed({ name, email, withData }: { name: string, email
         tx.product.create({
           data: {
             name: 'כביסה וקיפול',
-            priceUnitId: priceUnitKg.id,
+            priceUnitId: priceUnitSingle.id,
             price: 35,
             serviceCategoryId: serviceCategoryDryLaundry.id,
             userId: user.id,
