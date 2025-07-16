@@ -18,7 +18,7 @@ type UserLinkItemProps = {
 
 function UserLinkItem({ icon, link, onClick, children }: UserLinkItemProps) {
    return <li onClick={() => onClick?.()}>
-      <Link href={link} className='flex items-center gap-3 py-3 px-3 text-muted-foreground text-sm font-medium' onClick={() => layoutStore.toggleSidebar()}>
+      <Link href={link} className='flex items-center gap-3 py-3 px-3 text-muted-foreground text-sm font-medium hover:bg-muted hover:text-foreground rounded-md' onClick={() => layoutStore.toggleSidebar()}>
          {icon}
          <span>
             {children}
