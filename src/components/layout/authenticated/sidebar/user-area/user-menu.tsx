@@ -16,8 +16,8 @@ type MenuItemProps = {
 }
 
 function MenuItem({ icon, link, onClick, children }: MenuItemProps) {
-    return <li className='hover:bg-muted hover:text-foreground px-6 py-2 cursor-pointer' onClick={() => onClick?.()}>
-        <Link href={link} className="flex gap-2 items-center justify-end">
+    return <li onClick={() => onClick?.()}>
+        <Link href={link} className="flex gap-2 items-center justify-end hover:bg-muted hover:text-foreground px-6 py-2 cursor-pointer">
             <span className="text-sm">
                 {children}
             </span>
