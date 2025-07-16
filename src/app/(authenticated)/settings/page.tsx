@@ -11,7 +11,7 @@ const ICON_SIZE = 20;
 export default function Settings() {
     return (
         <Page title="הגדרות">
-            <ul className="grid grid-cols-3 gap-4">
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <li>
                     <Link href={`${ROUTES.settings.link}/${ROUTES.settings.children.printing.link}`}>
                         <SettingItem icon={<Printer size={ICON_SIZE} />} title="הגדרות הדפסה" description="הגדר איפה ומה יודפס בכל מצב" />
