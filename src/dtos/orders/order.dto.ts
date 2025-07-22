@@ -1,5 +1,6 @@
 import { CustomerDto } from "../customers/customer.dto";
 import { OrderItemDto } from "../order-item.dto";
+import { UserDto } from "../users/user.dto";
 
 export type OrderStatusDto = "in_progress" | "ready" | "completed" | "in_delivery" | "cancelled";
 
@@ -12,4 +13,5 @@ export type OrderDto = {
   status: OrderStatusDto;
   orderItems: OrderItemDto[];
   customer: CustomerDto;
+  user: UserDto;
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { OrderPDF } from "@/components/order-pdf";
 import { OrderStatus } from "@/components/order-status";
 import { Page } from "@/components/page";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -45,6 +46,21 @@ export default function OrderPage() {
                     <OrderActions data={order} />
                 </div>
             </div>
+            {order && <div style={{
+                width: '72mm',
+                margin: '0 auto',
+                border: '1px solid #000',
+            }}>
+                <OrderPDF
+                    userDetails={{
+                        businessName: order.user.email,
+                        businessId: '207084922',
+                        phone: '054-9775807',
+                    }}
+                    customerDetails={order.customer}
+                    orderDetails={order}
+                /></div>}
+
         </Page>
     );
 }

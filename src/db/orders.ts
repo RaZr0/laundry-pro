@@ -43,6 +43,7 @@ export async function getByOrderNumber(user: User, orderNumber: string): Promise
             },
             include: {
                 customer: true,
+                user: true,
                 orderItems: {
                     include: {
                         product: {

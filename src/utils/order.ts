@@ -10,3 +10,4 @@ export function calculateOrdersTotal(orders: OrderDto[]) {
         return total + totalPrice;
     }, 0);
 }
+
