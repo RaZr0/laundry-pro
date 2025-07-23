@@ -29,7 +29,9 @@ export async function generateOrderReciptBase64({ order }: { order: OrderDto }) 
     const el = React.createElement(OrderPDF, orderPdfProps);
     const html = ReactDOMServer.renderToStaticMarkup(<HtmlMarkup>{el}</HtmlMarkup>);
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        executablePath: process.env.NODE_ENV === 'production' ? "/vercel/.cache/puppeteer/chrome/linux-138.0.7204.157/chrome-linux64/chrome" : '',
+    });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'networkidle0' });
     const element = await page.$('#content') as ElementHandle;
